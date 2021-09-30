@@ -1,0 +1,6 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  outline: 1px solid red;
+}
