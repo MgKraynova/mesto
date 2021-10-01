@@ -1,4 +1,5 @@
 .profile__content {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  outline: 1px solid red;
 }
