@@ -6,4 +6,8 @@
   padding-bottom: 60px;
   padding-top: 45px;
   font-family: Inter, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
 }
