@@ -1,146 +1,85 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Проект Mesto</title>
-    <link rel="stylesheet" href="/pages/index.css" />
-  </head>
-  <body class="page">
-    <header class="header page__container page__header">
-      <img
-        src="images/header__logo.svg"
-        alt="Логотип проекта Mesto"
-        class="header__logo logo"
-      />
-      <hr class="header__line" />
-    </header>
-    <main class="content page__container">
-      <section class="profile content__profile">
-        <div class="profile__content">
-          <img
-            src="images/profile__avatar.jpg"
-            alt="Жак-Ив Кусто"
-            class="profile__avatar-image"
-          />
-          <div class="profile__text-content">
-            <ul class="list">
-              <li class="profile__name">Жак-Ив Кусто</li>
-              <li class="profile__description">Исследователь океана</li>
-            </ul>
-          </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Проект Mesto</title>
+  <link rel="stylesheet" href="/pages/index.css" />
+</head>
+
+<body class="page">
+  <header class="header page__container page__header">
+    <img src="images/header__logo.svg" alt="Логотип проекта Mesto" class="header__logo logo" />
+    <hr class="header__line" />
+  </header>
+  <main class="content page__container">
+    <section class="profile content__profile">
+      <div class="profile__content">
+        <img src="images/profile__avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar-image" />
+        <div class="profile__info">
+          <ul class="list profile__text-content">
+            <li class="profile__name">Жак-Ив Кусто</li>
+            <li class="profile__description">Исследователь океана</li>
+          </ul>
           <button type="button" class="profile__edit-button button">
-            <img
-              src="images/profile__pencil.svg"
-              alt="Карандаш"
-              class="profile__pencil-image"
-            />
+            <img src="images/profile__pencil.svg" alt="Карандаш" class="profile__pencil-image" />
           </button>
         </div>
-        <button type="button" class="profile__plus-button button">
-          <img
-            src="images/profile__plus.svg"
-            alt="Плюс"
-            class="profile__plus-image"
-          />
-        </button>
-      </section>
-      <section class="cards content__cards">
-        <figure class="card">
-          <img
-            src="/images/card__pont.jpg"
-            alt="Мост Александра 3 в Париже"
-            class="card__image"
-          />
-          <figcaption class="card__caption">
-            <p class="card__title">Мост Александра III в Париже</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like"
-            />
-          </figcaption>
-        </figure>
-        <figure class="card">
-          <img
-            src="/images/card__etretat.jpg"
-            alt="Скалы Этрета"
-            class="card__image"
-          />
-          <figcaption class="card__caption">
-            <p class="card__title">Этрета</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like"
-            />
-          </figcaption>
-        </figure>
-        <figure class="card">
-          <img
-            src="/images/card__Mont-cent-Michel.jpg"
-            alt="Остров крепость Мон Сен-Мишель"
-            class="card__image"
-          />
-          <figcaption class="card__caption">
-            <p class="card__title">Мон Сен-Мишель</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like"
-            />
-          </figcaption>
-        </figure>
-        <figure class="card">
-          <img
-            src="/images/card__Versailles.jpg"
-            alt="Коридоры дворца Версаля"
-            class="card__image"
-          />
-          <figcaption class="card__caption">
-            <p class="card__title">Версаль</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like"
-            />
-          </figcaption>
-        </figure>
-        <figure class="card">
-          <img
-            src="/images/card__chambord.jpg"
-            alt="Замок Шамбор"
-            class="card__image"
-          />
-          <figcaption class="card__caption">
-            <p class="card__title">Замок Шамбор</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like"
-            />
-          </figcaption>
-        </figure>
-        <figure class="card">
-          <img
-            src="/images/card__strasburg.jpg"
-            alt="Центральная часть Страсбурга - Гранд-Иль"
-            class="card__image"
-          />
-          <figcaption class="card__caption">
-            <p class="card__title">Страсбург</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like"
-            />
-          </figcaption>
-        </figure>
-      </section>
-    </main>
-    <footer class="footer page__container">
-      <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
-    </footer>
-  </body>
+      </div>
+      <button type="button" class="profile__plus-button button">
+        <img src="images/profile__plus.svg" alt="Плюс" class="profile__plus-image" />
+      </button>
+    </section>
+    <section class="cards content__cards">
+      <figure class="card">
+        <img src="/images/card__pont.jpg" alt="Мост Александра 3 в Париже" class="card__image" />
+        <figcaption class="card__caption">
+          <p class="card__title">Мост Александра III в Париже</p>
+          <img src="images/card__like.svg" alt="Отметка like" class="card__like" />
+        </figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/card__etretat.jpg" alt="Скалы Этрета" class="card__image" />
+        <figcaption class="card__caption">
+          <p class="card__title">Этрета</p>
+          <img src="images/card__like.svg" alt="Отметка like" class="card__like" />
+        </figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/card__Mont-cent-Michel.jpg" alt="Остров крепость Мон Сен-Мишель" class="card__image" />
+        <figcaption class="card__caption">
+          <p class="card__title">Мон Сен-Мишель</p>
+          <img src="images/card__like.svg" alt="Отметка like" class="card__like" />
+        </figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/card__Versailles.jpg" alt="Коридоры дворца Версаля" class="card__image" />
+        <figcaption class="card__caption">
+          <p class="card__title">Версаль</p>
+          <img src="images/card__like.svg" alt="Отметка like" class="card__like" />
+        </figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/card__chambord.jpg" alt="Замок Шамбор" class="card__image" />
+        <figcaption class="card__caption">
+          <p class="card__title">Замок Шамбор</p>
+          <img src="images/card__like.svg" alt="Отметка like" class="card__like" />
+        </figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/card__strasburg.jpg" alt="Центральная часть Страсбурга - Гранд-Иль" class="card__image" />
+        <figcaption class="card__caption">
+          <p class="card__title">Страсбург</p>
+          <img src="images/card__like.svg" alt="Отметка like" class="card__like" />
+        </figcaption>
+      </figure>
+    </section>
+  </main>
+  <footer class="footer page__container">
+    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+  </footer>
+</body>
+
 </html>

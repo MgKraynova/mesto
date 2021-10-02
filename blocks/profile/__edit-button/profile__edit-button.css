@@ -4,6 +4,9 @@
   height: 24px;
   margin-left: 19px;
   margin-top: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 767px) {
@@ -12,3 +15,13 @@
     margin-left: 14px;
   }
 }
+
+@media screen and (max-width: 549px) {
+  .profile__edit-button {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+    margin-top: 34px;
+  }
+}
+

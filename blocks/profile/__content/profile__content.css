@@ -1,5 +1,11 @@
 .profile__content {
   display: flex;
-  /* align-items: center; */
   outline: 1px solid red;
+}
+
+@media screen and (max-width: 549px) {
+  .profile__content {
+    flex-direction: column;
+    align-items: center;
+  }
 }

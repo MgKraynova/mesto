@@ -10,6 +10,7 @@
   -moz-osx-font-smoothing: grayscale;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1023px) {
@@ -19,10 +20,10 @@
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 549px) {
   .page {
-    padding-right: 19px;
-    padding-left: 19px;
+    padding-right: 0;
+    padding-left: 0;
     padding-bottom: 36px;
     padding-top: 28px;
   }

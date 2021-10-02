@@ -1,3 +1,10 @@
 .footer {
   outline: 1px solid red;
 }
+
+@media screen and (max-width: 549px) {
+  .footer {
+    padding-right: 19px;
+    padding-left: 19px;
+  }
+}

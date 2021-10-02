@@ -7,5 +7,12 @@
 @media screen and (max-width: 630px) {
   .profile__text-content {
     margin-left: 15px;
+    margin-top: 26px;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .profile__text-content {
+    margin-left: 25px;
   }
 }

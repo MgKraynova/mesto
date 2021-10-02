@@ -27,9 +27,9 @@
 @import url(../blocks/profile/__pencil-image/profile__pencil-image.css);
 @import url(../blocks/profile/__plus-image/profile__plus-image.css);
 @import url(../blocks/profile/__plus-button/profile__plus-button.css);
+@import url(../blocks/profile/__info/profile__info.css);
 
 @import url(../blocks/cards/cards.css);
-
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__caption/card__caption.css);
