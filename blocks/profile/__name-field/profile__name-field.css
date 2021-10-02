@@ -1,4 +1,4 @@
-.profile__name {
+.profile__name-field {
   font-style: normal;
   font-weight: 500;
   font-size: 42px;
@@ -10,14 +10,14 @@
 }
 
 @media screen and (max-width: 767px) {
-  .profile__name {
+  .profile__name-field {
     font-size: 30px;
     line-height: 36px;
   }
 }
 
 @media screen and (max-width: 549px) {
-  .profile__name {
+  .profile__name-field {
     font-size: 27px;
     line-height: 33px;
     text-align: center;

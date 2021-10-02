@@ -1,4 +1,4 @@
-.profile__plus-button {
+.profile__add-button {
   border: 2px solid #ffffff;
   border-radius: 2px;
   width: 150px;
@@ -7,20 +7,20 @@
 }
 
 @media screen and (max-width: 767px) {
-  .profile__plus-button {
+  .profile__add-button {
     width: 110px;
   }
 }
 
 @media screen and (max-width: 630px) {
-  .profile__plus-button {
+  .profile__add-button {
     width: 80px;
     height: 40px;
   }
 }
 
 @media screen and (max-width: 549px) {
-  .profile__plus-button {
+  .profile__add-button {
     width: 282px;
     height: 50px;
     margin-top: 33px;

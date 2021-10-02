@@ -1,4 +1,4 @@
-.profile__description {
+.profile__description-field {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -7,14 +7,14 @@
 }
 
 @media screen and (max-width: 767px) {
-  .profile__description {
+  .profile__description-field {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
 @media screen and (max-width: 549px) {
-  .profile__description {
+  .profile__description-field {
     text-align: center;
     margin-left: 3px;
   }
