@@ -4,3 +4,7 @@
   margin-top: 5px;
   margin-left: 20px;
 }
+
+.card__like:hover {
+  opacity: 0.5;
+}
