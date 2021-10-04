@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Проект Mesto</title>
-    <link rel="stylesheet" href="/pages/index.css" />
+    <link rel="stylesheet" href="pages/index.css" />
   </head>
 
   <body class="page">
@@ -31,111 +31,77 @@
               <li class="profile__description-field">Исследователь океана</li>
             </ul>
             <button type="button" class="profile__edit-button button">
-              <img
-                src="images/profile__pencil.svg"
-                alt="Карандаш"
-                class="profile__pencil-image"
-              />
             </button>
           </div>
         </div>
         <button type="button" class="profile__add-button button">
-          <img
-            src="images/profile__plus.svg"
-            alt="Плюс"
-            class="profile__plus-image"
-          />
         </button>
       </section>
       <section class="cards content__cards">
         <figure class="card">
           <img
-            src="/images/card__pont.jpg"
+            src="images/card__pont.jpg"
             alt="Мост Александра 3 в Париже"
             class="card__image"
           />
           <figcaption class="card__caption">
-            <p class="card__title">Мост Александра III в Париже</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like-button"
-            />
+            <p class="card__title">Мост Александра III</p>
+            <button class="card__like-button"></button>
           </figcaption>
         </figure>
         <figure class="card">
           <img
-            src="/images/card__etretat.jpg"
+            src="images/card__etretat.jpg"
             alt="Скалы Этрета"
             class="card__image"
           />
           <figcaption class="card__caption">
             <p class="card__title">Этрета</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like-button"
-            />
+            <button class="card__like-button"></button>
           </figcaption>
         </figure>
         <figure class="card">
           <img
-            src="/images/card__Mont-cent-Michel.jpg"
+            src="images/card__Mont-cent-Michel.jpg"
             alt="Остров крепость Мон Сен-Мишель"
             class="card__image"
           />
           <figcaption class="card__caption">
             <p class="card__title">Мон Сен-Мишель</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like-button"
-            />
+            <button class="card__like-button"></button>
           </figcaption>
         </figure>
         <figure class="card">
           <img
-            src="/images/card__Versailles.jpg"
+            src="images/card__Versailles.jpg"
             alt="Коридоры дворца Версаля"
             class="card__image"
           />
           <figcaption class="card__caption">
             <p class="card__title">Версаль</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like-button"
-            />
+            <button class="card__like-button"></button>
           </figcaption>
         </figure>
         <figure class="card">
           <img
-            src="/images/card__chambord.jpg"
+            src="images/card__chambord.jpg"
             alt="Замок Шамбор"
             class="card__image"
           />
           <figcaption class="card__caption">
             <p class="card__title">Замок Шамбор</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like-button"
-            />
+            <button class="card__like-button"></button>
           </figcaption>
         </figure>
         <figure class="card">
           <img
-            src="/images/card__strasburg.jpg"
+            src="images/card__strasburg.jpg"
             alt="Центральная часть Страсбурга - Гранд-Иль"
             class="card__image"
           />
           <figcaption class="card__caption">
             <p class="card__title">Страсбург</p>
-            <img
-              src="images/card__like.svg"
-              alt="Отметка like"
-              class="card__like-button"
-            />
+            <button class="card__like-button"></button>
           </figcaption>
         </figure>
       </section>
@@ -149,10 +115,10 @@
         <button class="popup__close-button button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form">
-          <!-- <fieldset class="popup__field"> -->
+          <fieldset class="popup__field">
           <input type="text" class="popup__input popup__input-name" />
           <input type="text" class="popup__input popup__input-description" />
-          <!-- </fieldset> -->
+          </fieldset>
           <button type="submit" class="popup__button">Сохранить</button>
         </form>
       </div>

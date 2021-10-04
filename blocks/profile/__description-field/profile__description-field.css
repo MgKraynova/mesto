@@ -21,5 +21,6 @@
   .profile__description-field {
     text-align: center;
     margin-left: 3px;
+    max-width: 189px;
   }
 }

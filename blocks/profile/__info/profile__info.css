@@ -1,6 +1,5 @@
 .profile__info {
   display: flex;
-  outline: 1px solid red;
 }
 
 @media screen and (max-width: 549px) {

@@ -1,6 +1,5 @@
 .profile {
-  outline: 1px solid red;
-  color: #FFFFFF;
+  color: #ffffff;
   display: flex;
   justify-content: space-between;
 }

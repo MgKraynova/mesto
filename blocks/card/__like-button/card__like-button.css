@@ -2,7 +2,13 @@
   height: 19px;
   width: 22px;
   margin-top: 5px;
-  margin-left: 20px;
+  background: none;
+  background-image: url(../../../images/card__like.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  padding: 0;
 }
 
 .card__like-button:hover {
