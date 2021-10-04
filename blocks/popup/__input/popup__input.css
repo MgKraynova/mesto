@@ -23,3 +23,9 @@
 .popup__input:focus {
   outline: none;
 }
+
+@media screen and (max-width: 579px) {
+  .popup__input:last-of-type {
+    margin-bottom: 46px;
+  }
+}
