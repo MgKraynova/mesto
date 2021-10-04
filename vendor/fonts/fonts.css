@@ -24,5 +24,6 @@
   font-weight: 900;
   font-display: swap;
   src: url("Inter-Black.woff2") format("woff2"),
-    url("Inter-Black.woff") format("woff"), url("Inter-Black.ttf") format("ttf");
+    url("Inter-Black.woff") format("woff"),
+    url("Inter-Black.ttf") format("ttf");
 }

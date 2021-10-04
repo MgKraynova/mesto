@@ -10,7 +10,7 @@
 </head>
 
 <body class="page">
-  <header class="header page__container page__header">
+  <!-- <header class="header page__container page__header">
     <img src="images/header__logo.svg" alt="Логотип проекта Mesto" class="header__logo logo" />
     <hr class="header__line" />
   </header>
@@ -79,7 +79,20 @@
   </main>
   <footer class="footer page__container">
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
-  </footer>
-</body>
+  </footer> -->
 
+  <div class="popup popup_active">
+    <div class="popup__content">
+      <button class="popup__close-button"></button>
+      <h2 class ="popup__title">Редактировать профиль</h2>
+      <form class="popup__form">
+        <fieldset class="popup__field">
+          <input type="text" class="popup__input">
+          <input type="text" class="popup__input">
+        </fieldset>
+      </form>
+      <button type="submit" class="popup__button">Сохранить</button>
+    </div>
+  </div>
+</body>
 </html>
