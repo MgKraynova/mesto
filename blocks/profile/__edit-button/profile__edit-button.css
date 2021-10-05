@@ -13,14 +13,14 @@
   background-position: center;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 790px) {
   .profile__edit-button {
     margin-top: 30px;
     margin-left: 14px;
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 710px) {
   .profile__edit-button {
     margin-left: 9px;
     width: 18px;

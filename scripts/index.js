@@ -1,26 +1,23 @@
 let popup = document.querySelector('.popup');
 let editButton = document.querySelector('.profile__edit-button');
 let closeButton = document.querySelector('.popup__close-button');
-let inputName = document.querySelector('.popup__input-name');
-let inputDescription = document.querySelector('.popup__input-description');
+let inputName = document.querySelector('.popup__input_content_name');
+let inputDescription = document.querySelector('.popup__input_content_description');
 let nameField = document.querySelector('.profile__name-field');
 let descriptionField = document.querySelector('.profile__description-field');
-let saveButton = document.querySelector('.popup__button');
 let formElement = document.querySelector('.popup__form');
 
 
 // Функция для открытия и закрытия попапа и для автозаполнении полей при открытии попапа
 function openPopup () {
+  inputName.value = nameField.textContent;
+  inputDescription.value = descriptionField.textContent;
   popup.classList.add('popup_opened');
-  inputName.setAttribute('value', nameField.textContent);
-  inputDescription.setAttribute('value', descriptionField.textContent);
 }
 
 editButton.addEventListener('click', openPopup);
 
 function closePopup () {
-  inputName.value = nameField.textContent;
-  inputDescription.value = descriptionField.textContent;
   popup.classList.remove('popup_opened');
 }
 

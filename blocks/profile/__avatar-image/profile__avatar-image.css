@@ -5,14 +5,7 @@
   border-radius: 50%;
 }
 
-@media screen and (max-width: 630px) {
-  .profile__avatar-image {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 710px) {
   .profile__avatar-image {
     width: 120px;
     height: 120px;

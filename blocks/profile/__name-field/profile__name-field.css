@@ -13,14 +13,14 @@
   max-width: 350px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 790px) {
   .profile__name-field {
     font-size: 30px;
     line-height: 36px;
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 710px) {
   .profile__name-field {
     font-size: 27px;
     line-height: 33px;

@@ -9,13 +9,12 @@
   </head>
 
   <body class="page">
-    <header class="header page__container page__header">
+    <header class="header page__header">
       <img
         src="images/header__logo.svg"
         alt="Логотип проекта Mesto"
         class="header__logo logo"
       />
-      <h1 class="header__title">Проект Mesto</h1>
       <div class="header__line"></div>
     </header>
     <main class="content page__container">
@@ -27,82 +26,82 @@
             class="profile__avatar-image"
           />
           <div class="profile__info">
-            <ul class="list profile__text-content">
-              <li class="profile__name-field">Жак-Ив Кусто</li>
-              <li class="profile__description-field">Исследователь океана</li>
-            </ul>
+            <div class="profile__text-content">
+              <h1 class="profile__name-field">Жак-Ив Кусто</h1>
+              <p class="profile__description-field">Исследователь океана</p>
+            </div>
             <button type="button" class="profile__edit-button button"></button>
           </div>
         </div>
         <button type="button" class="profile__add-button button"></button>
       </section>
       <section class="cards content__cards">
-        <figure class="card">
+        <div class="card">
           <img
             src="images/card__pont.jpg"
             alt="Мост Александра 3 в Париже"
             class="card__image"
           />
-          <figcaption class="card__caption">
-            <p class="card__title">Мост Александра III</p>
-            <button class="card__like-button"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          <div class="card__caption">
+            <h2 class="card__title">Мост Александра III</h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </div>
+        <div class="card">
           <img
             src="images/card__etretat.jpg"
             alt="Скалы Этрета"
             class="card__image"
           />
-          <figcaption class="card__caption">
-            <p class="card__title">Этрета</p>
-            <button class="card__like-button"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          <div class="card__caption">
+            <h2 class="card__title">Этрета</h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </div>
+        <div class="card">
           <img
             src="images/card__Mont-cent-Michel.jpg"
             alt="Остров крепость Мон Сен-Мишель"
             class="card__image"
           />
-          <figcaption class="card__caption">
-            <p class="card__title">Мон Сен-Мишель</p>
-            <button class="card__like-button"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          <div class="card__caption">
+            <h2 class="card__title">Мон Сен-Мишель</h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </div>
+        <div class="card">
           <img
             src="images/card__Versailles.jpg"
             alt="Коридоры дворца Версаля"
             class="card__image"
           />
-          <figcaption class="card__caption">
-            <p class="card__title">Версаль</p>
-            <button class="card__like-button"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          <div class="card__caption">
+            <h2 class="card__title">Версаль</h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </div>
+        <div class="card">
           <img
             src="images/card__chambord.jpg"
             alt="Замок Шамбор"
             class="card__image"
           />
-          <figcaption class="card__caption">
-            <p class="card__title">Замок Шамбор</p>
-            <button class="card__like-button"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          <div class="card__caption">
+            <h2 class="card__title">Замок Шамбор</h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </div>
+        <div class="card">
           <img
             src="images/card__strasburg.jpg"
             alt="Центральная часть Страсбурга - Гранд-Иль"
             class="card__image"
           />
-          <figcaption class="card__caption">
-            <p class="card__title">Страсбург</p>
-            <button class="card__like-button"></button>
-          </figcaption>
-        </figure>
+          <div class="card__caption">
+            <h2 class="card__title">Страсбург</h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </div>
       </section>
     </main>
     <footer class="footer page__container">
@@ -111,12 +110,22 @@
 
     <div class="popup">
       <div class="popup__content">
-        <button class="popup__close-button button"></button>
+        <button type="button" class="popup__close-button button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form">
+        <form name="popup-form" class="popup__form">
           <fieldset class="popup__field">
-            <input type="text" class="popup__input popup__input-name" />
-            <input type="text" class="popup__input popup__input-description" />
+            <input
+              placeholder="Имя"
+              name="popup-input-name"
+              type="text"
+              class="popup__input popup__input_content_name"
+            />
+            <input
+              placeholder="Род занятий"
+              name="popup-input-description"
+              type="text"
+              class="popup__input popup__input_content_description"
+            />
           </fieldset>
           <button type="submit" class="popup__button">Сохранить</button>
         </form>

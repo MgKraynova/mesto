@@ -10,14 +10,14 @@
   max-width: 350px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 790px) {
   .profile__description-field {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
-@media screen and (max-width: 549px) {
+@media screen and (max-width: 710px) {
   .profile__description-field {
     text-align: center;
     margin-left: 3px;
