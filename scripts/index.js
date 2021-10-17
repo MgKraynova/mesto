@@ -1,4 +1,3 @@
-// let popup = document.querySelector('.popup');
 let popupProfile = document.querySelector('.popup_type_profile');
 let popupPlace = document.querySelector('.popup_type_place');
 
@@ -14,6 +13,7 @@ let nameField = document.querySelector('.profile__name-field');
 let descriptionField = document.querySelector('.profile__description-field');
 let formElement = document.querySelector('.popup__form');
 
+let likeButton = document.querySelector('.card__like-button');
 
 
 // Функция для открытия попапа профайла
@@ -33,23 +33,6 @@ function closeProfilePopup () {
 
 closeButtonProfile.addEventListener('click', closeProfilePopup );
 
-// Функция для открытия попапа добавления карточки места
-function openPlacePopup () {
-  popupPlace.classList.add('popup_opened');
-}
-
-addButton.addEventListener('click', openPlacePopup);
-
-// Фуекция для закрытия попапа места
-function closePlacePopup () {
-  popupPlace.classList.remove('popup_opened');
-}
-
-closeButtonPlace.addEventListener('click', closePlacePopup);
-
-
-
-
 // Функция для перезаписи значений профайла при нажатии кнопки "Сохранить"
 function formSubmitHandler (evt) {
   evt.preventDefault();
@@ -59,6 +42,27 @@ function formSubmitHandler (evt) {
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
+
+// Функция для открытия попапа добавления карточки места
+function openPlacePopup () {
+  popupPlace.classList.add('popup_opened');
+}
+
+addButton.addEventListener('click', openPlacePopup);
+
+// Функция для закрытия попапа места
+function closePlacePopup () {
+  popupPlace.classList.remove('popup_opened');
+}
+
+closeButtonPlace.addEventListener('click', closePlacePopup);
+
+// Функция для постановки лайков на карточки
+
+function likeActive
+
+
+
 
 
 
