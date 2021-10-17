@@ -13,7 +13,7 @@ let nameField = document.querySelector('.profile__name-field');
 let descriptionField = document.querySelector('.profile__description-field');
 let formElement = document.querySelector('.popup__form');
 
-let likeButton = document.querySelector('.card__like-button');
+let likeButton = document.querySelectorAll('.card__like-button');
 
 
 // Функция для открытия попапа профайла
@@ -26,7 +26,7 @@ function OpenProfilePopup () {
 
 editButton.addEventListener('click', OpenProfilePopup);
 
-// Фуекция для закрытия попапа профайла
+// Функция для закрытия попапа профайла
 function closeProfilePopup () {
   popupProfile.classList.remove('popup_opened');
 }
@@ -59,8 +59,11 @@ closeButtonPlace.addEventListener('click', closePlacePopup);
 
 // Функция для постановки лайков на карточки
 
-function likeActive
+function likeActive (evt) {
+evt.target.classList.toggle('card__like-button_active');
+}
 
+ likeButton.forEach((item) => { item.addEventListener('click', likeActive) })
 
 
 
