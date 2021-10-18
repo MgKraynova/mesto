@@ -38,55 +38,13 @@
         <template class="template">
           <div class="card">
             <img src="" class="card__image" />
+            <button type="button" class="card__delete-button"></button>
             <div class="card__caption">
               <h2 class="card__title"></h2>
               <button type="button" class="card__like-button"></button>
             </div>
           </div>
         </template>
-
-        <!-- <div class="card">
-        <img src="images/card__pont.jpg" alt="Мост Александра 3 в Париже" class="card__image" />
-        <div class="card__caption">
-          <h2 class="card__title">Мост Александра III</h2>
-          <button type="button" class="card__like-button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/card__etretat.jpg" alt="Скалы Этрета" class="card__image" />
-        <div class="card__caption">
-          <h2 class="card__title">Этрета</h2>
-          <button type="button" class="card__like-button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/card__Mont-cent-Michel.jpg" alt="Остров крепость Мон Сен-Мишель" class="card__image" />
-        <div class="card__caption">
-          <h2 class="card__title">Мон Сен-Мишель</h2>
-          <button type="button" class="card__like-button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/card__Versailles.jpg" alt="Коридоры дворца Версаля" class="card__image" />
-        <div class="card__caption">
-          <h2 class="card__title">Версаль</h2>
-          <button type="button" class="card__like-button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/card__chambord.jpg" alt="Замок Шамбор" class="card__image" />
-        <div class="card__caption">
-          <h2 class="card__title">Замок Шамбор</h2>
-          <button type="button" class="card__like-button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/card__strasburg.jpg" alt="Центральная часть Страсбурга - Гранд-Иль" class="card__image" />
-        <div class="card__caption">
-          <h2 class="card__title">Страсбург</h2>
-          <button type="button" class="card__like-button"></button>
-        </div>
-      </div> -->
       </section>
     </main>
     <footer class="footer page__container">
@@ -100,7 +58,7 @@
           class="popup__close-button popup__close-button_type_profile button"
         ></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="popup-form" class="popup__form">
+        <form name="popup-form-for-profile" class="popup__form">
           <fieldset class="popup__field">
             <input
               placeholder="Имя"
@@ -127,7 +85,7 @@
           class="popup__close-button popup__close-button_type_place button"
         ></button>
         <h2 class="popup__title">Новое место</h2>
-        <form name="popup-form" class="popup__form">
+        <form name="popup-form-for-new-place" class="popup__form_type_place">
           <fieldset class="popup__field">
             <input
               placeholder="Название"
