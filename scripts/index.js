@@ -13,7 +13,6 @@ let nameField = document.querySelector('.profile__name-field');
 let descriptionField = document.querySelector('.profile__description-field');
 let formElement = document.querySelector('.popup__form');
 
-let likeButton = document.querySelectorAll('.card__like-button');
 
 
 // Функция для открытия попапа профайла
@@ -99,6 +98,8 @@ function addInitialCards (item) {
 initialCards.forEach(addInitialCards);
 
 // Функция для постановки лайков на карточки
+
+let likeButton = cards.querySelectorAll('.card__like-button');
 
 function likeActive (evt) {
 evt.target.classList.toggle('card__like-button_active');
