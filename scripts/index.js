@@ -57,13 +57,54 @@ function closePlacePopup () {
 
 closeButtonPlace.addEventListener('click', closePlacePopup);
 
+// Функция для отображения 6 карточек мест при загрузке страницы
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+const cardTemplate = document.querySelector('.template').content;
+const cards = document.querySelector('.cards');
+
+function addInitialCards (item) {
+    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+    cardElement.querySelector('.card__image').src = item.link;
+    cardElement.querySelector('.card__title').textContent = item.name;
+    cards.prepend(cardElement);
+};
+
+initialCards.forEach(addInitialCards);
+
 // Функция для постановки лайков на карточки
 
 function likeActive (evt) {
 evt.target.classList.toggle('card__like-button_active');
 }
 
- likeButton.forEach((item) => { item.addEventListener('click', likeActive) })
+ likeButton.forEach((item) => { item.addEventListener('click', likeActive) });
 
 
 

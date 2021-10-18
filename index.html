@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Проект Mesto</title>
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Проект Mesto</title>
-  <link rel="stylesheet" href="pages/index.css" />
-</head>
-
-<body class="page">
-  <header class="header page__header">
-    <img src="images/header__logo.svg" alt="Логотип проекта Mesto" class="header__logo logo" />
-  </header>
-  <main class="content page__container">
-    <section class="profile content__profile">
-      <div class="profile__content">
-        <img src="images/profile__avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar-image" />
-        <div class="profile__info">
-          <div class="profile__text-content">
-            <h1 class="profile__name-field">Жак-Ив Кусто</h1>
-            <p class="profile__description-field">Исследователь океана</p>
+  <body class="page">
+    <header class="header page__header">
+      <img
+        src="images/header__logo.svg"
+        alt="Логотип проекта Mesto"
+        class="header__logo logo"
+      />
+    </header>
+    <main class="content page__container">
+      <section class="profile content__profile">
+        <div class="profile__content">
+          <img
+            src="images/profile__avatar.jpg"
+            alt="Жак-Ив Кусто"
+            class="profile__avatar-image"
+          />
+          <div class="profile__info">
+            <div class="profile__text-content">
+              <h1 class="profile__name-field">Жак-Ив Кусто</h1>
+              <p class="profile__description-field">Исследователь океана</p>
+            </div>
+            <button type="button" class="profile__edit-button button"></button>
           </div>
-          <button type="button" class="profile__edit-button button"></button>
         </div>
-      </div>
-      <button type="button" class="profile__add-button button"></button>
-    </section>
-    <section class="cards content__cards">
-      <div class="card">
+        <button type="button" class="profile__add-button button"></button>
+      </section>
+      <section class="cards content__cards">
+        <template class="template">
+          <div class="card">
+            <img src="" class="card__image" />
+            <div class="card__caption">
+              <h2 class="card__title"></h2>
+              <button type="button" class="card__like-button"></button>
+            </div>
+          </div>
+        </template>
+
+        <!-- <div class="card">
         <img src="images/card__pont.jpg" alt="Мост Александра 3 в Париже" class="card__image" />
         <div class="card__caption">
           <h2 class="card__title">Мост Александра III</h2>
@@ -69,43 +86,66 @@
           <h2 class="card__title">Страсбург</h2>
           <button type="button" class="card__like-button"></button>
         </div>
+      </div> -->
+      </section>
+    </main>
+    <footer class="footer page__container">
+      <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+    </footer>
+
+    <div class="popup popup_type_profile">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close-button popup__close-button_type_profile button"
+        ></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form name="popup-form" class="popup__form">
+          <fieldset class="popup__field">
+            <input
+              placeholder="Имя"
+              name="popup-input-name"
+              type="text"
+              class="popup__input popup__input_content_name"
+            />
+            <input
+              placeholder="Род занятий"
+              name="popup-input-description"
+              type="text"
+              class="popup__input popup__input_content_description"
+            />
+          </fieldset>
+          <button type="submit" class="popup__button">Сохранить</button>
+        </form>
       </div>
-    </section>
-  </main>
-  <footer class="footer page__container">
-    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
-  </footer>
-
-  <div class="popup popup_type_profile">
-    <div class="popup__content">
-      <button type="button" class="popup__close-button popup__close-button_type_profile button"></button>
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form name="popup-form" class="popup__form">
-        <fieldset class="popup__field">
-          <input placeholder="Имя" name="popup-input-name" type="text" class="popup__input popup__input_content_name" />
-          <input placeholder="Род занятий" name="popup-input-description" type="text"
-            class="popup__input popup__input_content_description" />
-        </fieldset>
-        <button type="submit" class="popup__button">Сохранить</button>
-      </form>
     </div>
-  </div>
 
-  <div class="popup popup_type_place">
-    <div class="popup__content">
-      <button type="button" class="popup__close-button popup__close-button_type_place button"></button>
-      <h2 class="popup__title">Новое место</h2>
-      <form name="popup-form" class="popup__form">
-        <fieldset class="popup__field">
-          <input placeholder="Название" name="popup-input-place-name" type="text" class="popup__input popup__input_content_place-name" />
-          <input placeholder="Ссылка на картинку" name="popup-input-image-link" type="text"
-            class="popup__input popup__input_content_image-link" />
-        </fieldset>
-        <button type="submit" class="popup__button">Создать</button>
-      </form>
+    <div class="popup popup_type_place">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close-button popup__close-button_type_place button"
+        ></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form name="popup-form" class="popup__form">
+          <fieldset class="popup__field">
+            <input
+              placeholder="Название"
+              name="popup-input-place-name"
+              type="text"
+              class="popup__input popup__input_content_place-name"
+            />
+            <input
+              placeholder="Ссылка на картинку"
+              name="popup-input-image-link"
+              type="text"
+              class="popup__input popup__input_content_image-link"
+            />
+          </fieldset>
+          <button type="submit" class="popup__button">Создать</button>
+        </form>
+      </div>
     </div>
-  </div>
-  <script src="scripts/index.js"></script>
-</body>
-
+    <script src="scripts/index.js"></script>
+  </body>
 </html>
