@@ -173,3 +173,10 @@ function closeImagePopup() {
 }
 
 closeButtonPopupImage.addEventListener("click", closeImagePopup);
+
+// Функция для плавного закрытия попапов
+window.addEventListener("load", () => {
+  document
+    .querySelectorAll(".popup")
+    .forEach((popup) => popup.classList.add("popup_transition"));
+});

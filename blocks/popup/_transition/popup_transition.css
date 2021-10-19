@@ -1,0 +1,6 @@
+.popup_transition {
+  transition: visibility 0.5s, opacity 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
