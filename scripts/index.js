@@ -93,6 +93,9 @@ function addInitialCards(item) {
   cardElement
     .querySelector(".card__delete-button")
     .addEventListener("click", deleteCard); // добавление слушателя события на кнопку "удалить" у карточек
+  cardElement
+    .querySelector(".card__image")
+    .addEventListener("click", openImagePopup); // добавление слушателя события на картинку для открытия попапа с картинкой
 }
 
 initialCards.forEach(addInitialCards);
@@ -120,7 +123,7 @@ function closePlacePopup() {
 
 closeButtonPlace.addEventListener("click", closePlacePopup);
 
-// Функция для возможности добавлять карточки места
+// Функция для возможности добавлять новые карточки места
 
 let newPlaceForm = document.querySelector(".popup__form_type_place");
 
@@ -138,6 +141,35 @@ function addNewPlace(evt) {
   cardElement
     .querySelector(".card__delete-button")
     .addEventListener("click", deleteCard); // добавление слушателя события на кнопку "удалить" у новой карточки
+  cardElement
+    .querySelector(".card__image")
+    .addEventListener("click", openImagePopup); // добавление слушателя события на картинку для открытия попапа с картинкой
 }
 
 newPlaceForm.addEventListener("submit", addNewPlace);
+
+// Функция для открытия и закрытия попапа с картинкой
+
+const popupImage = document.querySelector(".popup_type_image");
+const bigImageInPopup = document.querySelector(".popup__place-image");
+const popupImageCaption = document.querySelector(".popup__caption");
+
+function openImagePopup(evt) {
+  bigImageInPopup.src = evt.target.src;
+  let cardElement = evt.target.parentElement;
+  let cardCaption = cardElement.querySelector(".card__caption");
+  let cardTitle = cardCaption.querySelector(".card__title");
+  popupImageCaption.textContent = cardTitle.textContent;
+  bigImageInPopup.alt = cardTitle.textContent;
+  popupImage.classList.add("popup_opened");
+}
+
+const closeButtonPopupImage = document.querySelector(
+  ".popup__close-button_type_image-popup"
+);
+
+function closeImagePopup() {
+  popupImage.classList.remove("popup_opened");
+}
+
+closeButtonPopupImage.addEventListener("click", closeImagePopup);
