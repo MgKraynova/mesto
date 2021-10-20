@@ -58,19 +58,24 @@
           class="popup__close-button popup__close-button_type_profile button"
         ></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="popup-form-for-profile" class="popup__form">
+        <form
+          name="popup-form-for-profile"
+          class="popup__form popup__form_type_profile"
+        >
           <fieldset class="popup__field">
             <input
               placeholder="Имя"
               name="popup-input-name"
               type="text"
               class="popup__input popup__input_content_name"
+              required
             />
             <input
               placeholder="Род занятий"
               name="popup-input-description"
               type="text"
               class="popup__input popup__input_content_description"
+              required
             />
           </fieldset>
           <button type="submit" class="popup__button">Сохранить</button>
@@ -95,12 +100,14 @@
               name="popup-input-place-name"
               type="text"
               class="popup__input popup__input_content_place-name"
+              required
             />
             <input
               placeholder="Ссылка на картинку"
               name="popup-input-image-link"
-              type="text"
+              type="url"
               class="popup__input popup__input_content_image-link"
+              required
             />
           </fieldset>
           <button type="submit" class="popup__button">Создать</button>
@@ -121,6 +128,7 @@
         <p class="popup__caption"></p>
       </div>
     </div>
+    <script src="scripts/cards.js"></script>
     <script src="scripts/index.js"></script>
   </body>
 </html>
