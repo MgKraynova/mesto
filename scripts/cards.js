@@ -24,12 +24,3 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
-// initialCards.forEach(function createCard(item) {
-//   cloneTemplateCard();
-//   cardElement.querySelector(".card__image").src = item.link;
-//   cardElement.querySelector(".card__image").alt = item.name;
-//   cardElement.querySelector(".card__title").textContent = item.name;
-//   insertCardToBlockCards(cardElement);
-//   addEventListenerToCards(cardElement);
-// })
