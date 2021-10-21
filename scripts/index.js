@@ -59,17 +59,23 @@ function clearPlacePopupInputWhenPopupOpens() {
 
 // Функции для открытия и для закрытия попапов
 function openPopup(popup) {
-  if (popup === popupProfile) {
-    autoFillProfileInputWhenPopupOpens();
-  }
-  if (popup === popupPlace) {
-    clearPlacePopupInputWhenPopupOpens();
-  }
   popup.classList.add("popup_opened");
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+}
+
+// Функция для открытия попапа профайла
+function openProfilePopup(popup) {
+  autoFillProfileInputWhenPopupOpens();
+  openPopup(popup);
+}
+
+// Функция для открытия попапа места
+function openPopupPlace(popup) {
+  clearPlacePopupInputWhenPopupOpens();
+  openPopup(popup);
 }
 
 // Функция для перезаписи значений профайла при нажатии кнопки "Сохранить"
@@ -135,9 +141,9 @@ function addNewCardFromPopup(evt) {
 }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
-addButton.addEventListener("click", () => openPopup(popupPlace));
+addButton.addEventListener("click", () => openPopupPlace(popupPlace));
 
-editButton.addEventListener("click", () => openPopup(popupProfile));
+editButton.addEventListener("click", () => openProfilePopup(popupProfile));
 
 closeButtonProfile.addEventListener("click", () => closePopup(popupProfile));
 
