@@ -38,6 +38,12 @@ const closeButtonPopupImage = document.querySelector(
   ".popup__close-button_type_image-popup"
 );
 
+// Массивы форм и полей ввода
+const formElements = Array.from(document.querySelectorAll('.popup__form'));
+const formInputs = Array.from(document.querySelectorAll('.popup__input'));
+
+
+
 // Прочие переменные
 const cardTemplate = document.querySelector(".template").content; // шаблон карточки из template
 const cards = document.querySelector(".cards"); // блок cards
@@ -140,6 +146,40 @@ function addNewCardFromPopup(evt) {
   closePopup(popupPlace);
 }
 
+// Функция для добавлению поля ввода класса с ошибкой
+function showErrorForInput(input) {
+  input.classList.add('popup__input_type_error');
+}
+
+// Функция для удаления у поля ввода класса с ошибкой
+function hideErrorForInput(input) {
+  input.classList.remove('popup__input_type_error');
+}
+
+// Функция для проверки валидности поля
+function checkInputValidity() {
+
+
+
+  formInputs.forEach( (input) => {
+    if (input.validity.valid) {
+      hideErrorForInput(input);
+    } else {
+      showErrorForInput(input)
+    }
+  });
+}
+
+// Перебор массива полей ввода для добавления каждому поля слушателя событий
+formInputs.forEach( (input) => {
+  input.addEventListener('input', checkInputValidity);
+})
+
+
+
+
+
+
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
 addButton.addEventListener("click", () => openPopupPlace(popupPlace));
 
@@ -159,3 +199,5 @@ closeButtonPopupImage.addEventListener("click", () => closePopup(popupImage));
 
 // ПЕРЕБОР МАССИВА ДЛЯ СОЗДАНИЯ ПЕРВЫХ 6 КАРТОЧЕК
 initialCards.forEach((item) => cards.prepend(createCard(item.name, item.link))); // создание 6 первоначальных карточек
+
+

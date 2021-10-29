@@ -61,6 +61,7 @@
         <form
           name="popup-form-for-profile"
           class="popup__form popup__form_type_profile"
+          novalidate
         >
           <fieldset class="popup__field">
             <input
@@ -69,14 +70,20 @@
               type="text"
               class="popup__input popup__input_content_name"
               required
+              minlength="2"
+              maxlength="40"
             />
+            <span class="popup__input-error popup-input-name-error">Вы пропустили это поле.</span>
             <input
               placeholder="Род занятий"
               name="popup-input-description"
               type="text"
               class="popup__input popup__input_content_description"
               required
+              minlength="2"
+              maxlength="200"
             />
+            <span class="popup__input-error popup-input-description-error">Введите адрес сайта.</span>
           </fieldset>
           <button type="submit" class="popup__button">Сохранить</button>
         </form>
