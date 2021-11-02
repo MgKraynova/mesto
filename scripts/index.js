@@ -38,12 +38,6 @@ const closeButtonPopupImage = document.querySelector(
   ".popup__close-button_type_image-popup"
 );
 
-// Массивы форм и полей ввода
-const formElements = Array.from(document.querySelectorAll('.popup__form'));
-const formInputs = Array.from(document.querySelectorAll('.popup__input'));
-
-
-
 // Прочие переменные
 const cardTemplate = document.querySelector(".template").content; // шаблон карточки из template
 const cards = document.querySelector(".cards"); // блок cards
@@ -65,11 +59,18 @@ function clearPlacePopupInputWhenPopupOpens() {
 
 // Функции для открытия и для закрытия попапов
 function openPopup(popup) {
+  const form = popup.querySelector(formConfig.formSelector);
   popup.classList.add("popup_opened");
+  setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
 }
 
 function closePopup(popup) {
+  const form = popup.querySelector(formConfig.formSelector);
+  const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
+
   popup.classList.remove("popup_opened");
+
+  inputs.forEach((input) =>  hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
 }
 
 // Функция для открытия попапа профайла
@@ -146,34 +147,6 @@ function addNewCardFromPopup(evt) {
   closePopup(popupPlace);
 }
 
-// Функция для добавлению поля ввода класса с ошибкой
-function showErrorForInput(input) {
-  input.classList.add('popup__input_type_error');
-}
-
-// Функция для удаления у поля ввода класса с ошибкой
-function hideErrorForInput(input) {
-  input.classList.remove('popup__input_type_error');
-}
-
-// Функция для проверки валидности поля
-function checkInputValidity() {
-
-
-
-  formInputs.forEach( (input) => {
-    if (input.validity.valid) {
-      hideErrorForInput(input);
-    } else {
-      showErrorForInput(input)
-    }
-  });
-}
-
-// Перебор массива полей ввода для добавления каждому поля слушателя событий
-formInputs.forEach( (input) => {
-  input.addEventListener('input', checkInputValidity);
-})
 
 
 

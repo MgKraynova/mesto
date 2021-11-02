@@ -66,24 +66,28 @@
           <fieldset class="popup__field">
             <input
               placeholder="Имя"
+              id="popup-input-name"
               name="popup-input-name"
               type="text"
               class="popup__input popup__input_content_name"
               required
               minlength="2"
               maxlength="40"
+              autocomplete="off"
             />
-            <span class="popup__input-error popup-input-name-error">Вы пропустили это поле.</span>
+            <span class="popup__input-error popup-input-name-error"></span>
             <input
               placeholder="Род занятий"
+              id="popup-input-description"
               name="popup-input-description"
               type="text"
               class="popup__input popup__input_content_description"
               required
               minlength="2"
               maxlength="200"
+              autocomplete="off"
             />
-            <span class="popup__input-error popup-input-description-error">Введите адрес сайта.</span>
+            <span class="popup__input-error popup-input-description-error"></span>
           </fieldset>
           <button type="submit" class="popup__button">Сохранить</button>
         </form>
@@ -100,22 +104,30 @@
         <form
           name="popup-form-for-new-place"
           class="popup__form popup__form_type_place"
+          novalidate
         >
           <fieldset class="popup__field">
             <input
               placeholder="Название"
               name="popup-input-place-name"
+              id="popup-input-place-name"
               type="text"
               class="popup__input popup__input_content_place-name"
               required
+              minlength="2"
+              maxlength="30"
+              autocomplete="off"
             />
+            <span class="popup__input-error popup-input-place-name-error"></span>
             <input
               placeholder="Ссылка на картинку"
               name="popup-input-image-link"
+              id="popup-input-image-link"
               type="url"
               class="popup__input popup__input_content_image-link"
               required
             />
+            <span class="popup__input-error popup-input-image-link-error"></span>
           </fieldset>
           <button type="submit" class="popup__button">Создать</button>
         </form>
@@ -136,6 +148,7 @@
       </div>
     </div>
     <script src="scripts/cards.js"></script>
+    <script src="scripts/validate.js"></script>
     <script src="scripts/index.js"></script>
   </body>
 </html>
