@@ -61,8 +61,12 @@ function clearPlacePopupInputWhenPopupOpens() {
 // Функции для открытия и для закрытия попапов
 function openPopup(popup) {
   const form = popup.querySelector(formConfig.formSelector);
+
   popup.classList.add("popup_opened");
+
   setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
+
+ document.addEventListener("keydown", (evt) => closePopupByPressEsc(evt));
 }
 
 function closePopup(popup) {
@@ -73,6 +77,8 @@ function closePopup(popup) {
     inputs.forEach((input) =>  hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
   }
   popup.classList.remove("popup_opened");
+
+  document.removeEventListener("keydown", closePopupByPressEsc);
 }
 
 // Функция для закрытия попапа при клике на оверлей
@@ -188,7 +194,6 @@ popupOverlays.forEach((popupOverlayElement) => {
   popupOverlayElement.addEventListener("mouseup", (evt) => closePopupByClickOnOverlay(evt));
 }) // Перебор массива для добавления слушателя события элементам оверлей
 
-document.addEventListener("keydown", (evt) => closePopupByPressEsc(evt));
 
 // Перебор массива для создания первых 6 карточек
 initialCards.forEach((item) => cards.prepend(createCard(item.name, item.link))); // создание 6 первоначальных карточек
