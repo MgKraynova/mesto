@@ -41,6 +41,7 @@ const closeButtonPopupImage = document.querySelector(
 // Прочие переменные
 const cardTemplate = document.querySelector(".template").content; // шаблон карточки из template
 const cards = document.querySelector(".cards"); // блок cards
+const popupOverlays = Array.from(document.querySelectorAll(".popup"));
 
 // ФУНКЦИИ
 
@@ -65,12 +66,31 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  const form = popup.querySelector(formConfig.formSelector);
-  const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
+  if (popup.querySelector(formConfig.formSelector)) {
+    const form = popup.querySelector(formConfig.formSelector);
+    const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
 
+    inputs.forEach((input) =>  hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
+  }
   popup.classList.remove("popup_opened");
+}
 
-  inputs.forEach((input) =>  hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
+// Функция для закрытия попапа при клике на оверлей
+function closePopupByClickOnOverlay(evt) {
+  const popup = evt.target.closest(".popup_opened");
+  popupOverlays.forEach((popupOverlayElement) => {
+    if (evt.target === popupOverlayElement) {
+      closePopup(popup);
+    }
+  })
+}
+
+// Функция для закрытия попапа при клике на ESC
+function closePopupByPressEsc(evt) {
+  const popup = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") {
+    closePopup(popup);
+  }
 }
 
 // Функция для открытия попапа профайла
@@ -147,12 +167,6 @@ function addNewCardFromPopup(evt) {
   closePopup(popupPlace);
 }
 
-
-
-
-
-
-
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
 addButton.addEventListener("click", () => openPopupPlace(popupPlace));
 
@@ -170,7 +184,11 @@ newPlaceForm.addEventListener("submit", addNewCardFromPopup);
 
 closeButtonPopupImage.addEventListener("click", () => closePopup(popupImage));
 
-// ПЕРЕБОР МАССИВА ДЛЯ СОЗДАНИЯ ПЕРВЫХ 6 КАРТОЧЕК
+popupOverlays.forEach((popupOverlayElement) => {
+  popupOverlayElement.addEventListener("mouseup", (evt) => closePopupByClickOnOverlay(evt));
+}) // Перебор массива для добавления слушателя события элементам оверлей
+
+document.addEventListener("keydown", (evt) => closePopupByPressEsc(evt));
+
+// Перебор массива для создания первых 6 карточек
 initialCards.forEach((item) => cards.prepend(createCard(item.name, item.link))); // создание 6 первоначальных карточек
-
-
