@@ -60,13 +60,9 @@ function clearPlacePopupInputWhenPopupOpens() {
 
 // Функции для открытия и для закрытия попапов
 function openPopup(popup) {
-  const form = popup.querySelector(formConfig.formSelector);
-
   popup.classList.add('popup_opened');
 
-  setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
-
-  document.addEventListener('keydown', (evt) => closePopupByPressEsc(evt));
+  document.addEventListener('keydown', closePopupByPressEsc);
 }
 
 function closePopup(popup) {
@@ -99,16 +95,23 @@ function closePopupByPressEsc(evt) {
   }
 }
 
+// Функция для открытия попапа с формой и для установки состояния кнопки submit при открытии такого попапа
+function openPopupWithForm(popup) {
+  const form = popup.querySelector(formConfig.formSelector);
+  setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
+  openPopup(popup);
+}
+
 // Функция для открытия попапа профайла
 function openProfilePopup(popup) {
   autoFillProfileInputWhenPopupOpens();
-  openPopup(popup);
+  openPopupWithForm(popup);
 }
 
 // Функция для открытия попапа места
 function openPopupPlace(popup) {
   clearPlacePopupInputWhenPopupOpens();
-  openPopup(popup);
+  openPopupWithForm(popup);
 }
 
 // Функция для перезаписи значений профайла при нажатии кнопки 'Сохранить'
@@ -191,7 +194,7 @@ newPlaceForm.addEventListener('submit', addNewCardFromPopup);
 closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
 
 popupOverlays.forEach((popupOverlayElement) => {
-  popupOverlayElement.addEventListener('mouseup', (evt) => closePopupByClickOnOverlay(evt));
+  popupOverlayElement.addEventListener('mousedown', closePopupByClickOnOverlay);
 }) // Перебор массива для добавления слушателя события элементам оверлей
 
 
