@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80cf149a-bb05-4f07-8fea-baa63c916e72" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/fonts/Inter-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/fonts/Inter-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/fonts/Inter-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/fonts/Inter-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/fonts/Inter-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/fonts/Inter-Regular.woff2" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -57,7 +56,9 @@
       <workItem from="1634746680633" duration="1238000" />
       <workItem from="1634923386142" duration="1828000" />
       <workItem from="1635234273347" duration="9528000" />
-      <workItem from="1635753698704" duration="35121000" />
+      <workItem from="1635753698704" duration="36228000" />
+      <workItem from="1636449049156" duration="6000" />
+      <workItem from="1637314023167" duration="9320000" />
     </task>
     <servers />
   </component>

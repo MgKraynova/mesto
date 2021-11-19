@@ -172,7 +172,9 @@ function createCard(cardName, cardLink) {
 // Функция для возможности добавлять новые карточки места с помощью попапа
 function addNewCardFromPopup(evt) {
   evt.preventDefault();
-  cards.prepend(createCard(inputPlaceName.value, inputImageLink.value));
+  const card = new Card(inputPlaceName.value, inputImageLink.value, '.template'); // передаём объект аргументом
+  const cardElement = card.createCard();
+  cards.prepend (cardElement);
   closePopup(popupPlace);
 }
 
@@ -200,3 +202,8 @@ popupOverlays.forEach((popupOverlayElement) => {
 
 // Перебор массива для создания первых 6 карточек
 initialCards.forEach((item) => cards.prepend(createCard(item.name, item.link))); // создание 6 первоначальных карточек
+
+
+
+
+
