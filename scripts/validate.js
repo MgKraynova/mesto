@@ -1,11 +1,11 @@
 // Массивы форм и полей ввода
-const formConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  errorClass: 'popup__input_type_error',
-  submitButtonSelector: '.popup__button',
-  submitButtonInactiveStateClass: 'popup__button_state_inactive'
-}
+// const formConfig = {
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   errorClass: 'popup__input_type_error',
+//   submitButtonSelector: '.popup__button',
+//   submitButtonInactiveStateClass: 'popup__button_state_inactive'
+// }
 
 // ФУНКЦИИ
 

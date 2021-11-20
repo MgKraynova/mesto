@@ -1,7 +1,4 @@
-const cards = document.querySelector('.cards'); // блок cards
-
-
-class Card {
+export class Card {
   constructor(cardName, cardLink, cardSelector) {
     this._name = cardName;
     this._link = cardLink;
@@ -53,9 +50,3 @@ class Card {
 
 
 
-//Для каждой карточки создайте экземпляр класса Card.
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.template'); // передаём объект аргументом
-  const cardElement = card.createCard();
-  cards.prepend(cardElement);
-})

@@ -1,12 +1,12 @@
-const formConfig = {
-  // formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  errorClass: 'popup__input_type_error',
-  submitButtonSelector: '.popup__button',
-  submitButtonInactiveStateClass: 'popup__button_state_inactive'
-}
+// const formConfig = {
+//   // formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   errorClass: 'popup__input_type_error',
+//   submitButtonSelector: '.popup__button',
+//   submitButtonInactiveStateClass: 'popup__button_state_inactive'
+// }
 
-class FormValidator {
+export class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
@@ -16,7 +16,7 @@ class FormValidator {
   _showErrorForInput() {
     this._inputs.forEach((input) => {
       const errorElement = this._formElement.querySelector(`.${input.id}-error`);
-      input.classList.add(config.errorClass);
+      input.classList.add(this._config.errorClass);
       errorElement.textContent = input.validationMessage;
     } )
   }
@@ -24,7 +24,7 @@ class FormValidator {
   _hideErrorForInput() {
     this._inputs.forEach((input) => {
       const errorElement = this._formElement.querySelector(`.${input.id}-error`);
-      input.classList.remove(config.errorClass);
+      input.classList.remove(this._config.errorClass);
       errorElement.textContent = ' ';
     })
   }
@@ -39,22 +39,23 @@ class FormValidator {
     })
   }
 
-  _cancelDefaultFormSubmit() {
-
+  _cancelDefaultFormSubmit(evt) {
+    evt.preventDefault();
   }
 
   _setSubmitButtonState() {
-
+    const submitButton = this._form.querySelector(this._config.submitButtonSelector);
+    submitButton.disabled = !this._form.checkValidity();
+    submitButton.classList.toggle(this._config.submitButtonInactiveStateClass, !this._form.checkValidity());
   }
 
   _addFormListeners() {
-
     this._inputs.forEach((input) => input.addEventListener('input', () => {
       input._checkInputValidation();
       })); // проверка валидации каждого поля формы
 
     this._formElement.addEventListener('submit', () => {
-      this._formElement._cancelDefaultFormSubmit(); //todo проверить, к чему это применяется
+      this._formElement._cancelDefaultFormSubmit(evt); //todo проверить, к чему это применяется
     }); // отмена стандартного поведения при нажатии на кнопку submit
     this._formElement.addEventListener('input', () => {
       this._formElement._setSubmitButtonState(); //todo проверить, к чему это применяется
@@ -63,14 +64,8 @@ class FormValidator {
 
   enableValidation() {
     this._formElement._addFormListeners();
+    return this._formElement;
   }
 }
-//todo убрать new из названия переменной
-const newPlaceForm = document.querySelector('.popup__form_type_place');
-const newPlaceFormValidator = new FormValidator (formConfig, newPlaceForm);
-newPlaceFormValidator.enableValidation();
 
-const newProfileForm = document.querySelector('.popup__form_type_profile');
-const newProfileFormValidator = new FormValidator (formConfig, newProfileForm);
-newProfileFormValidator.enableValidation();
 
