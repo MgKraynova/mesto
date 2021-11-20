@@ -28,7 +28,7 @@ const inputPlaceName = document.querySelector(
 const inputImageLink = document.querySelector(
   '.popup__input_content_image-link'
 );
-const newPlaceForm = document.querySelector('.popup__form_type_place');
+//const newPlaceForm = document.querySelector('.popup__form_type_place');
 
 // Элементы попапа с увеличенным изображением места
 const popupImage = document.querySelector('.popup_type_image');
