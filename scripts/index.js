@@ -42,7 +42,13 @@ const closeButtonPopupImage = document.querySelector(
 );
 
 // Прочие переменные
-const cardTemplate = document.querySelector('.template').content; // шаблон карточки из template
+const formConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  errorClass: 'popup__input_type_error',
+  submitButtonSelector: '.popup__button',
+  submitButtonInactiveStateClass: 'popup__button_state_inactive'
+};
 const cards = document.querySelector('.cards'); // блок cards
 const popupOverlays = Array.from(document.querySelectorAll('.popup'));
 
@@ -73,7 +79,8 @@ function closePopup(popup) {
     const form = popup.querySelector(formConfig.formSelector);
     const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
 
-    inputs.forEach((input) => hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
+    //inputs.forEach((input) => hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
+    // todo а не нужно ли это в Формвалидашн убрать? вроде это там уже есть. Вроде можно удалить
   }
   popup.classList.remove('popup_opened');
 
@@ -98,14 +105,6 @@ function closePopupByPressEsc(evt) {
   }
 }
 
-//todo удалить конфиг
-const formConfig = {
-  // formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  errorClass: 'popup__input_type_error',
-  submitButtonSelector: '.popup__button',
-  submitButtonInactiveStateClass: 'popup__button_state_inactive'
-}
 
 
 // Функция для открытия попапа с формой и для установки состояния кнопки submit при открытии такого попапа
@@ -146,41 +145,13 @@ function editProfileInfo(evt) {
 // }
 
 // Функция для открытия попапа с картинкой
-function openPopupImage(cardName, cardLink) {
+export function openPopupImage(cardName, cardLink) {
   bigImageInPopup.src = cardLink;
   popupImageCaption.textContent = cardName;
   bigImageInPopup.alt = cardName;
 
   openPopup(popupImage);
 }
-
-// Функция для добавления карточкам слушателей событий
-// function addEventListenerToNewCard(cardElement) {
-//   const likeButton = cardElement.querySelector('.card__like-button');
-//   const deleteButton = cardElement.querySelector('.card__delete-button');
-//   const cardImage = cardElement.querySelector('.card__image');
-
-//   likeButton.addEventListener('click', makeLikeActive); // добавление слушателя события на кнопку лайк у карточек
-//   deleteButton.addEventListener('click', deleteCard); // добавление слушателя события на кнопку 'удалить' у карточек
-//   cardImage.addEventListener('click', () =>
-//     openPopupImage(cardImage.alt, cardImage.src)
-//   ); // добавление слушателя события на картинку для открытия попапа с картинкой
-// }
-
-// Функция для cоздания карточки
-// function createCard(cardName, cardLink) {
-//   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-//   const cardImage = cardElement.querySelector('.card__image');
-//   const cardTitle = cardElement.querySelector('.card__title');
-
-//   cardImage.src = cardLink;
-//   cardImage.alt = cardName;
-//   cardTitle.textContent = cardName;
-
-//   addEventListenerToNewCard(cardElement);
-
-//   return cardElement;
-// }
 
 // Функция для возможности добавлять новые карточки места с помощью попапа
 function addNewCardFromPopup(evt) {

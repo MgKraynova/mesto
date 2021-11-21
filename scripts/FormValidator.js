@@ -1,11 +1,3 @@
-// const formConfig = {
-//   // formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   errorClass: 'popup__input_type_error',
-//   submitButtonSelector: '.popup__button',
-//   submitButtonInactiveStateClass: 'popup__button_state_inactive'
-// }
-
 export class FormValidator {
   constructor(config, formElement) {
     this._config = config;
@@ -23,7 +15,7 @@ export class FormValidator {
 
   _hideErrorForInput() {
     this._inputs.forEach((input) => {
-      const errorElement = this._formElement.querySelector(`.${input.id}-error`);
+      const errorElement = this._formElement.querySelector(`.${input.id}-error`); //todo вынести куда нибудь эту переменную
       input.classList.remove(this._config.errorClass);
       errorElement.textContent = ' ';
     })
@@ -44,9 +36,9 @@ export class FormValidator {
   }
 
   _setSubmitButtonState() {
-    const submitButton = this._form.querySelector(this._config.submitButtonSelector);
-    submitButton.disabled = !this._form.checkValidity();
-    submitButton.classList.toggle(this._config.submitButtonInactiveStateClass, !this._form.checkValidity());
+    const submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
+    submitButton.disabled = !this._formElement.checkValidity();
+    submitButton.classList.toggle(this._config.submitButtonInactiveStateClass, !this._formElement.checkValidity());
   }
 
   _addFormListeners() {

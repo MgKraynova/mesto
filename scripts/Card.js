@@ -1,3 +1,5 @@
+import {openPopupImage} from './index.js';
+
 export class Card {
   constructor(cardName, cardLink, cardSelector) {
     this._name = cardName;
@@ -14,15 +16,16 @@ export class Card {
 
   // Метод для постановки лайков на карточки и их удаления
   _makeLikeActive() {
-   this._element.querySelector('.card__like-button').classList.toggle('card__like-button_active');
+    this._element.querySelector('.card__like-button').classList.toggle('card__like-button_active');
   }
 
   // Метод удаления карточки
   _deleteCard() {
-  this._element.querySelector('.card__delete-button').parentElement.remove();
+    this._element.querySelector('.card__delete-button').parentElement.remove();
   }
 
   _setEventListeners() {
+
     this._element.querySelector('.card__like-button').addEventListener('click', () => {
       this._makeLikeActive();
     })
@@ -30,6 +33,10 @@ export class Card {
     this._element.querySelector('.card__delete-button').addEventListener('click', () => {
       this._deleteCard();
     })
+    this._cardImage = this._element.querySelector('.card__image');
+    this._cardImage.addEventListener('click', () => {
+      openPopupImage(this._cardImage.alt, this._cardImage.src)
+    }); // добавление слушателя события на картинку для открытия попапа с картинкой
   }
 
   createCard() {
