@@ -47,8 +47,15 @@ const formConfig = {
   inputSelector: '.popup__input',
   errorClass: 'popup__input_type_error',
   submitButtonSelector: '.popup__button',
-  submitButtonInactiveStateClass: 'popup__button_state_inactive'
-};
+  submitButtonInactiveStateClass: 'popup__button_state_inactive',
+  closeButtonSelector: '.popup__close-button'
+}
+console.log(formConfig);
+const forms = Array.from(document.querySelectorAll(formConfig.formSelector));
+console.log(forms);
+console.log(forms[0]);
+console.log(forms[1]);
+console.log(formConfig.formSelector);
 
 const cards = document.querySelector('.cards'); // блок cards
 const popupOverlays = Array.from(document.querySelectorAll('.popup'));
@@ -71,18 +78,11 @@ function clearPlacePopupInputWhenPopupOpens() {
 // Функции для открытия и для закрытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-
   document.addEventListener('keydown', closePopupByPressEsc);
 }
 
 function closePopup(popup) {
-  if (popup.querySelector(formConfig.formSelector)) {
-    const form = popup.querySelector(formConfig.formSelector);
-    const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
-
-    //inputs.forEach((input) => hideErrorForInput(input, form, formConfig)); // скрывает ошибки для полей формы при закрытии попапа
-    // todo а не нужно ли это в Формвалидашн убрать? вроде это там уже есть. Вроде можно удалить
-  }
+//todo непонятно, как очищать ошибки при закрытии формы
   popup.classList.remove('popup_opened');
 
   document.removeEventListener('keydown', closePopupByPressEsc);
@@ -106,12 +106,9 @@ function closePopupByPressEsc(evt) {
   }
 }
 
-
-
 // Функция для открытия попапа с формой и для установки состояния кнопки submit при открытии такого попапа
 function openPopupWithForm(popup) {
-  const form = popup.querySelector(formConfig.formSelector);
-  //setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
+  addFormValidator();
   openPopup(popup);
 }
 
@@ -134,16 +131,6 @@ function editProfileInfo(evt) {
   descriptionField.textContent = inputDescription.value;
   closePopup(popupProfile);
 }
-
-// Функция для постановки лайков на карточки и их удаления
-// function makeLikeActive(evt) {
-//   evt.target.classList.toggle('card__like-button_active');
-// }
-
-// Функция удаления карточки
-// function deleteCard(evt) {
-//   evt.target.parentElement.remove();
-// }
 
 // Функция для открытия попапа с картинкой
 export function openPopupImage(cardName, cardLink) {
@@ -184,31 +171,18 @@ popupOverlays.forEach((popupOverlayElement) => {
   popupOverlayElement.addEventListener('mousedown', closePopupByClickOnOverlay);
 }) // Перебор массива для добавления слушателя события элементам оверлей
 
-
-// Перебор массива для создания первых 6 карточек
-// initialCards.forEach((item) => cards.prepend(createCard(item.name, item.link))); // создание 6 первоначальных карточек
-
-
 //Для каждой карточки создайте экземпляр класса Card.
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link, '.template'); // передаём объект аргументом
   const cardElement = card.createCard();
   cards.prepend(cardElement);
-})
+});
 
-//todo убрать new из названия переменной
-// const newPlaceForm = document.querySelector('.popup__form_type_place');
-// const newPlaceFormValidator = new FormValidator (formConfig, newPlaceForm);
-// newPlaceFormValidator.enableValidation();
-
-// const newProfileForm = document.querySelector('.popup__form_type_profile');
-// const newProfileFormValidator = new FormValidator (formConfig, newProfileForm);
-// newProfileFormValidator.enableValidation();
-
-const forms = Array.from(document.querySelectorAll(formConfig.formSelector));
-forms.forEach((form) => {
-  const newFormValidator = new FormValidator(formConfig, form);
-  newFormValidator.enableValidation();
-})
-
+function addFormValidator() {
+  forms.forEach((form) => {
+    const formValidator = new FormValidator(formConfig, form);
+    console.log(formValidator);
+    formValidator.enableValidation();
+  });
+}
 
