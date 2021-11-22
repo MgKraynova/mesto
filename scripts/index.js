@@ -49,6 +49,7 @@ const formConfig = {
   submitButtonSelector: '.popup__button',
   submitButtonInactiveStateClass: 'popup__button_state_inactive'
 };
+
 const cards = document.querySelector('.cards'); // блок cards
 const popupOverlays = Array.from(document.querySelectorAll('.popup'));
 
@@ -110,7 +111,7 @@ function closePopupByPressEsc(evt) {
 // Функция для открытия попапа с формой и для установки состояния кнопки submit при открытии такого попапа
 function openPopupWithForm(popup) {
   const form = popup.querySelector(formConfig.formSelector);
-  setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
+  //setSubmitButtonState(form, formConfig); // устанавливает состояние кнопки в зависимости от валидности полей
   openPopup(popup);
 }
 
@@ -197,10 +198,17 @@ initialCards.forEach((item) => {
 
 //todo убрать new из названия переменной
 // const newPlaceForm = document.querySelector('.popup__form_type_place');
-const newPlaceFormValidator = new FormValidator (formConfig, newPlaceForm);
-newPlaceFormValidator.enableValidation();
+// const newPlaceFormValidator = new FormValidator (formConfig, newPlaceForm);
+// newPlaceFormValidator.enableValidation();
 
-const newProfileForm = document.querySelector('.popup__form_type_profile');
-const newProfileFormValidator = new FormValidator (formConfig, newProfileForm);
-newProfileFormValidator.enableValidation();
+// const newProfileForm = document.querySelector('.popup__form_type_profile');
+// const newProfileFormValidator = new FormValidator (formConfig, newProfileForm);
+// newProfileFormValidator.enableValidation();
+
+const forms = Array.from(document.querySelectorAll(formConfig.formSelector));
+forms.forEach((form) => {
+  const newFormValidator = new FormValidator(formConfig, form);
+  newFormValidator.enableValidation();
+})
+
 
