@@ -1,8 +1,7 @@
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 // ПЕРЕМЕННЫЕ
-
 // Элементы блока profile на html странице
 const nameField = document.querySelector('.profile__name-field');
 const descriptionField = document.querySelector('.profile__description-field');
@@ -33,7 +32,7 @@ const inputImageLink = document.querySelector(
 );
 const newPlaceForm = document.querySelector('.popup__form_type_place');
 
-// Элементы попапа с увеличенным изображением места
+// Элементы попапа с картинкой места
 const popupImage = document.querySelector('.popup_type_image');
 const bigImageInPopup = document.querySelector('.popup__place-image');
 const popupImageCaption = document.querySelector('.popup__caption');
@@ -41,7 +40,7 @@ const closeButtonPopupImage = document.querySelector(
   '.popup__close-button_type_image-popup'
 );
 
-// Прочие переменные
+// Переменные, относящиеся к формам
 const formConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -50,45 +49,33 @@ const formConfig = {
   submitButtonInactiveStateClass: 'popup__button_state_inactive',
   closeButtonSelector: '.popup__close-button'
 }
-console.log(formConfig);
 const forms = Array.from(document.querySelectorAll(formConfig.formSelector));
-console.log(forms);
-console.log(forms[0]);
-console.log(forms[1]);
-console.log(formConfig.formSelector);
 
-const cards = document.querySelector('.cards'); // блок cards
+// Прочие переменные
+const cardsElement = document.querySelector('.cards'); // блок cards
 const popupOverlays = Array.from(document.querySelectorAll('.popup'));
 
 // ФУНКЦИИ
-
-// Функция для автоматической подстановки данных профайла в попап редактирования профиля
 function autoFillProfileInputWhenPopupOpens() {
   inputName.value = nameField.textContent;
   inputDescription.value = descriptionField.textContent;
 }
 
-// Функция для очистки полей формы попапа места. Будет использоваться при открытии попапа места, если до этого пользователь ввел данные,
-// но не нажал на создание карточки, а закрыл попап
 function clearPlacePopupInputWhenPopupOpens() {
   inputImageLink.value = '';
   inputPlaceName.value = '';
 }
 
-// Функции для открытия и для закрытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByPressEsc);
 }
 
 function closePopup(popup) {
-//todo непонятно, как очищать ошибки при закрытии формы
   popup.classList.remove('popup_opened');
-
   document.removeEventListener('keydown', closePopupByPressEsc);
 }
 
-// Функция для закрытия попапа при клике на оверлей
 function closePopupByClickOnOverlay(evt) {
   const popup = evt.target.closest('.popup_opened');
   popupOverlays.forEach((popupOverlayElement) => {
@@ -98,7 +85,6 @@ function closePopupByClickOnOverlay(evt) {
   })
 }
 
-// Функция для закрытия попапа при клике на ESC
 function closePopupByPressEsc(evt) {
   const popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
@@ -106,25 +92,29 @@ function closePopupByPressEsc(evt) {
   }
 }
 
-// Функция для открытия попапа с формой и для установки состояния кнопки submit при открытии такого попапа
+function addFormValidator() {
+  forms.forEach((form) => {
+    const formValidator = new FormValidator(formConfig, form);
+    console.log(formValidator);
+    formValidator.enableValidation();
+  });
+}
+
 function openPopupWithForm(popup) {
   addFormValidator();
   openPopup(popup);
 }
 
-// Функция для открытия попапа профайла
 function openProfilePopup(popup) {
   autoFillProfileInputWhenPopupOpens();
   openPopupWithForm(popup);
 }
 
-// Функция для открытия попапа места
 function openPopupPlace(popup) {
   clearPlacePopupInputWhenPopupOpens();
   openPopupWithForm(popup);
 }
 
-// Функция для перезаписи значений профайла при нажатии кнопки 'Сохранить'
 function editProfileInfo(evt) {
   evt.preventDefault();
   nameField.textContent = inputName.value;
@@ -132,7 +122,6 @@ function editProfileInfo(evt) {
   closePopup(popupProfile);
 }
 
-// Функция для открытия попапа с картинкой
 export function openPopupImage(cardName, cardLink) {
   bigImageInPopup.src = cardLink;
   popupImageCaption.textContent = cardName;
@@ -141,12 +130,11 @@ export function openPopupImage(cardName, cardLink) {
   openPopup(popupImage);
 }
 
-// Функция для возможности добавлять новые карточки места с помощью попапа
 function addNewCardFromPopup(evt) {
   evt.preventDefault();
-  const card = new Card(inputPlaceName.value, inputImageLink.value, '.template'); // передаём объект аргументом
+  const card = new Card(inputPlaceName.value, inputImageLink.value, '.template');
   const cardElement = card.createCard();
-  cards.prepend (cardElement);
+  cardsElement.prepend (cardElement);
   closePopup(popupPlace);
 }
 
@@ -169,20 +157,14 @@ closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
 
 popupOverlays.forEach((popupOverlayElement) => {
   popupOverlayElement.addEventListener('mousedown', closePopupByClickOnOverlay);
-}) // Перебор массива для добавления слушателя события элементам оверлей
+});
 
-//Для каждой карточки создайте экземпляр класса Card.
+// ПЕРЕБОР МАССИВА ДЛЯ СОЗДАНИЯ ПЕРВЫХ КАРТОЧЕК
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link, '.template'); // передаём объект аргументом
   const cardElement = card.createCard();
-  cards.prepend(cardElement);
+  cardsElement.prepend(cardElement);
 });
 
-function addFormValidator() {
-  forms.forEach((form) => {
-    const formValidator = new FormValidator(formConfig, form);
-    console.log(formValidator);
-    formValidator.enableValidation();
-  });
-}
+
 

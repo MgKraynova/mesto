@@ -1,4 +1,4 @@
-export class FormValidator {
+class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
@@ -42,19 +42,18 @@ export class FormValidator {
     this._inputs.forEach((input) => input.addEventListener('input', () => {
       this._checkInputValidation();
     }));
-    // проверка валидации каждого поля формы
 
     this._formElement.addEventListener('submit', this._cancelDefaultFormSubmit);
 
     this._formElement.addEventListener('input', () => {
       this._setSubmitButtonState();
-    }); // установление состоянием кнопки в зависимости от валидности формы
+    });
 
     this._closeButton.addEventListener('click', () => {
       this._inputs.forEach((input) => {
         this._hideErrorForInput(input);
       })
-    })
+    }) // сокрытие ошибок формы при закрытии попапа
   }
 
   enableValidation() {
@@ -63,4 +62,4 @@ export class FormValidator {
   }
 }
 
-
+export default FormValidator;

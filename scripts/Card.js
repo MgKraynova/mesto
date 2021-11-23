@@ -1,6 +1,6 @@
 import {openPopupImage} from './index.js';
 
-export class Card {
+class Card {
   constructor(cardName, cardLink, cardSelector) {
     this._name = cardName;
     this._link = cardLink;
@@ -8,23 +8,20 @@ export class Card {
   }
 
   _getTemplate() {
-    // забираем разметку из HTML и клонируем элемент
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.card').cloneNode(true);
-    // вернём DOM-элемент карточки
     return cardElement;
   }
 
-  // Метод для постановки лайков на карточки и их удаления
   _makeLikeActive() {
     this._element.querySelector('.card__like-button').classList.toggle('card__like-button_active');
   }
 
-  // Метод удаления карточки
   _deleteCard() {
     this._element.querySelector('.card__delete-button').parentElement.remove();
   }
 
   _setEventListeners() {
+    this._cardImage = this._element.querySelector('.card__image');
 
     this._element.querySelector('.card__like-button').addEventListener('click', () => {
       this._makeLikeActive();
@@ -33,27 +30,23 @@ export class Card {
     this._element.querySelector('.card__delete-button').addEventListener('click', () => {
       this._deleteCard();
     })
-    this._cardImage = this._element.querySelector('.card__image');
+
     this._cardImage.addEventListener('click', () => {
       openPopupImage(this._cardImage.alt, this._cardImage.src)
-    }); // добавление слушателя события на картинку для открытия попапа с картинкой
+    });
   }
 
   createCard() {
-    // Запишем разметку в приватное поле _element.
-    // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
-    this._setEventListeners(); // добавим обработчики
+    this._setEventListeners();
 
-    // Добавим данные
     this._element.querySelector('.card__image').src = this._link;
     this._element.querySelector('.card__image').alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
 
-    // Вернём элемент наружу
     return this._element;
   }
 }
 
-
+export default Card;
 
