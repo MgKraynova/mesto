@@ -1,10 +1,9 @@
-import {openPopupImage} from './index.js';
-
 class Card {
-  constructor(cardName, cardLink, cardSelector) {
+  constructor(cardName, cardLink, cardSelector, openPopupImageFunction) {
     this._name = cardName;
     this._link = cardLink;
     this._cardSelector = cardSelector;
+    this._openPopupImageFunction = openPopupImageFunction;
   }
 
   _getTemplate() {
@@ -17,7 +16,8 @@ class Card {
   }
 
   _deleteCard() {
-    this._element.querySelector('.card__delete-button').parentElement.remove();
+    this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {
@@ -32,16 +32,19 @@ class Card {
     })
 
     this._cardImage.addEventListener('click', () => {
-      openPopupImage(this._cardImage.alt, this._cardImage.src)
+      this._openPopupImageFunction(this._cardImage.alt, this._cardImage.src)
     });
   }
 
   createCard() {
     this._element = this._getTemplate();
+
+    const cardImage = this._element.querySelector('.card__image');
+
     this._setEventListeners();
 
-    this._element.querySelector('.card__image').src = this._link;
-    this._element.querySelector('.card__image').alt = this._name;
+    cardImage.src = this._link;
+    cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
 
     return this._element;

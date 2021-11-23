@@ -30,7 +30,6 @@ const inputPlaceName = document.querySelector(
 const inputImageLink = document.querySelector(
   '.popup__input_content_image-link'
 );
-const newPlaceForm = document.querySelector('.popup__form_type_place');
 
 // Элементы попапа с картинкой места
 const popupImage = document.querySelector('.popup_type_image');
@@ -49,7 +48,11 @@ const formConfig = {
   submitButtonInactiveStateClass: 'popup__button_state_inactive',
   closeButtonSelector: '.popup__close-button'
 }
-const forms = Array.from(document.querySelectorAll(formConfig.formSelector));
+const newPlaceForm = document.querySelector('.popup__form_type_place');
+const profileForm = document.querySelector('.popup__form_type_profile');
+
+const formValidatorForNewPlaceForm = new FormValidator(formConfig, newPlaceForm);
+const formValidatorForProfileForm = new FormValidator(formConfig, profileForm);
 
 // Прочие переменные
 const cardsElement = document.querySelector('.cards'); // блок cards
@@ -92,27 +95,21 @@ function closePopupByPressEsc(evt) {
   }
 }
 
-function addFormValidator() {
-  forms.forEach((form) => {
-    const formValidator = new FormValidator(formConfig, form);
-    console.log(formValidator);
-    formValidator.enableValidation();
-  });
-}
+function openPopupWithForm(popup, formValidator) {
+  formValidator.enableValidation();
+  formValidator.setSubmitButtonState();
 
-function openPopupWithForm(popup) {
-  addFormValidator();
   openPopup(popup);
 }
 
-function openProfilePopup(popup) {
+function openProfilePopup(popup, formValidator) {
   autoFillProfileInputWhenPopupOpens();
-  openPopupWithForm(popup);
+  openPopupWithForm(popup, formValidator);
 }
 
-function openPopupPlace(popup) {
+function openPopupPlace(popup, formValidator) {
   clearPlacePopupInputWhenPopupOpens();
-  openPopupWithForm(popup);
+  openPopupWithForm(popup, formValidator);
 }
 
 function editProfileInfo(evt) {
@@ -122,7 +119,7 @@ function editProfileInfo(evt) {
   closePopup(popupProfile);
 }
 
-export function openPopupImage(cardName, cardLink) {
+function openPopupImage(cardName, cardLink) {
   bigImageInPopup.src = cardLink;
   popupImageCaption.textContent = cardName;
   bigImageInPopup.alt = cardName;
@@ -130,18 +127,22 @@ export function openPopupImage(cardName, cardLink) {
   openPopup(popupImage);
 }
 
-function addNewCardFromPopup(evt) {
-  evt.preventDefault();
-  const card = new Card(inputPlaceName.value, inputImageLink.value, '.template');
+function addCard(cardName, imageLink) {
+  const card = new Card(cardName, imageLink, '.template', openPopupImage);
   const cardElement = card.createCard();
   cardsElement.prepend (cardElement);
+}
+
+function addNewCardFromPopup(evt) {
+  evt.preventDefault();
+  addCard(inputPlaceName.value, inputImageLink.value);
   closePopup(popupPlace);
 }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
-addButton.addEventListener('click', () => openPopupPlace(popupPlace));
+addButton.addEventListener('click', () => openPopupPlace(popupPlace, formValidatorForNewPlaceForm));
 
-editButton.addEventListener('click', () => openProfilePopup(popupProfile));
+editButton.addEventListener('click', () => openProfilePopup(popupProfile, formValidatorForProfileForm));
 
 closeButtonProfile.addEventListener('click', () => closePopup(popupProfile));
 
@@ -161,9 +162,7 @@ popupOverlays.forEach((popupOverlayElement) => {
 
 // ПЕРЕБОР МАССИВА ДЛЯ СОЗДАНИЯ ПЕРВЫХ КАРТОЧЕК
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.template'); // передаём объект аргументом
-  const cardElement = card.createCard();
-  cardsElement.prepend(cardElement);
+  addCard(item.name, item.link);
 });
 
 

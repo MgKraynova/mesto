@@ -33,7 +33,7 @@ class FormValidator {
     evt.preventDefault();
   }
 
-  _setSubmitButtonState() {
+  setSubmitButtonState() {
     this._submitButton.disabled = !this._formElement.checkValidity();
     this._submitButton.classList.toggle(this._config.submitButtonInactiveStateClass, !this._formElement.checkValidity());
   }
@@ -46,7 +46,7 @@ class FormValidator {
     this._formElement.addEventListener('submit', this._cancelDefaultFormSubmit);
 
     this._formElement.addEventListener('input', () => {
-      this._setSubmitButtonState();
+      this.setSubmitButtonState();
     });
 
     this._closeButton.addEventListener('click', () => {
@@ -58,7 +58,6 @@ class FormValidator {
 
   enableValidation() {
     this._addFormListeners();
-    this._setSubmitButtonState();
   }
 }
 
