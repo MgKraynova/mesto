@@ -51,12 +51,17 @@ const formConfig = {
 const newPlaceForm = document.querySelector('.popup__form_type_place');
 const profileForm = document.querySelector('.popup__form_type_profile');
 
-const formValidatorForNewPlaceForm = new FormValidator(formConfig, newPlaceForm);
-const formValidatorForProfileForm = new FormValidator(formConfig, profileForm);
-
 // Прочие переменные
 const cardsElement = document.querySelector('.cards'); // блок cards
 const popupOverlays = Array.from(document.querySelectorAll('.popup'));
+
+//Создание экземпляров FormValidator и активация валидации
+const formValidatorForNewPlaceForm = new FormValidator(formConfig, newPlaceForm);
+formValidatorForNewPlaceForm.enableValidation();
+
+const formValidatorForProfileForm = new FormValidator(formConfig, profileForm);
+formValidatorForProfileForm.enableValidation();
+
 
 // ФУНКЦИИ
 function autoFillProfileInputWhenPopupOpens() {
@@ -96,7 +101,6 @@ function closePopupByPressEsc(evt) {
 }
 
 function openPopupWithForm(popup, formValidator) {
-  formValidator.enableValidation();
   formValidator.setSubmitButtonState();
 
   openPopup(popup);
