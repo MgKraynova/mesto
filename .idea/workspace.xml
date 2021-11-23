@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="80cf149a-bb05-4f07-8fea-baa63c916e72" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mesto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mesto.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +58,7 @@
       <workItem from="1635753698704" duration="36228000" />
       <workItem from="1636449049156" duration="6000" />
       <workItem from="1637314023167" duration="22209000" />
-      <workItem from="1637584031543" duration="15149000" />
+      <workItem from="1637584031543" duration="15368000" />
     </task>
     <servers />
   </component>
