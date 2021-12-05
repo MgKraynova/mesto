@@ -1,5 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+import {Popup, PopupWithImage} from "./Popup.js";
 
 // ПЕРЕМЕННЫЕ
 // Элементы блока profile на html странице
@@ -32,12 +34,10 @@ const inputImageLink = document.querySelector(
 );
 
 // Элементы попапа с картинкой места
-const popupImage = document.querySelector('.popup_type_image');
-const bigImageInPopup = document.querySelector('.popup__place-image');
-const popupImageCaption = document.querySelector('.popup__caption');
-const closeButtonPopupImage = document.querySelector(
-  '.popup__close-button_type_image-popup'
-);
+//const popupImage = document.querySelector('.popup_type_image');
+//const bigImageInPopup = document.querySelector('.popup__place-image');
+//const popupImageCaption = document.querySelector('.popup__caption');
+//const closeButtonPopupImage = document.querySelector( '.popup__close-button_type_image-popup');
 
 // Переменные, относящиеся к формам
 const formConfig = {
@@ -123,24 +123,33 @@ function editProfileInfo(evt) {
   closePopup(popupProfile);
 }
 
-function openPopupImage(cardName, cardLink) {
-  bigImageInPopup.src = cardLink;
-  popupImageCaption.textContent = cardName;
-  bigImageInPopup.alt = cardName;
+// function openPopupImage(cardName, cardLink) {
+//   bigImageInPopup.src = cardLink;
+//   popupImageCaption.textContent = cardName;
+//   bigImageInPopup.alt = cardName;
+//
+//   openPopup(popupImage);
+// }
 
-  openPopup(popupImage);
-}
-
-function addCard(cardName, imageLink) {
-  const card = new Card(cardName, imageLink, '.template', openPopupImage);
+function addCard(cardName, imageLink) { //todo тут мб нужен класс?
+  const card = new Card(cardName, imageLink, '.template', () => {
+    handleCardClick();
+  });
   const cardElement = card.createCard();
   cardsElement.prepend (cardElement);
 }
 
-function addNewCardFromPopup(evt) {
+function addNewCardFromPopup(evt) { //todo тут мб нужен класс?
   evt.preventDefault();
   addCard(inputPlaceName.value, inputImageLink.value);
   closePopup(popupPlace);
+}
+
+function handleCardClick(cardLink, cardName) {
+  const popupWithImage = new PopupWithImage('.popup_type_image',
+    '.popup__close-button', '.popup__place-image',
+    '.popup__caption');
+  popupWithImage.openImagePopup(cardLink, cardName);  //todo
 }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
@@ -158,16 +167,27 @@ closeButtonPlace.addEventListener('click', () => closePopup(popupPlace));
 
 newPlaceForm.addEventListener('submit', addNewCardFromPopup);
 
-closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
+//closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
 
 popupOverlays.forEach((popupOverlayElement) => {
   popupOverlayElement.addEventListener('mousedown', closePopupByClickOnOverlay);
 });
 
-// ПЕРЕБОР МАССИВА ДЛЯ СОЗДАНИЯ ПЕРВЫХ КАРТОЧЕК
-initialCards.forEach((item) => {
-  addCard(item.name, item.link);
-});
+// СОЗДАНИЕ ПЕРВЫХ КАРТОЧЕК
 
+const cardList = new Section({
+    items: initialCards,
+    renderer: (cardName, imageLink) => {
+      const card = new Card(cardName, imageLink, '.template', () => {
+        handleCardClick(imageLink, cardName);
+      } ); //todo не работает кнопка закрытия
+      const cardElement = card.createCard();
+      cardList.addItem(cardElement);
+    }
+  },
+  '.cards'
+)
+
+cardList.renderItems();
 
 
