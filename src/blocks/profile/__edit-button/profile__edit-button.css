@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(../../../images/profile__pencil.svg);
+  background-image: url('../../../images/profile__pencil.svg');
   background-repeat: no-repeat;
   background-size: 10px 10px;
   background-position: center;

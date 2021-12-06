@@ -3,7 +3,7 @@
   width: 22px;
   margin-top: 5px;
   background: none;
-  background-image: url(../../../images/card__like.svg);
+  background-image: url('../../../images/card__like.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
