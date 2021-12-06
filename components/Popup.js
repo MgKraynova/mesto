@@ -30,8 +30,6 @@ class Popup {
     });
   }
 
-  // Содержит публичный метод setEventListeners, который добавляет слушатель клика иконке закрытия попапа.
-  // Модальное окно также закрывается при клике на затемнённую область вокруг формы.
   setEventListeners() {
     this._closeButton.addEventListener('click', () => {
       this.closePopup();
