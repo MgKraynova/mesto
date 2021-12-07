@@ -29,9 +29,6 @@ class PopupWithForm extends Popup {
   closePopup() {
     const formElement = this._popup.querySelector('.popup__form');
     formElement.reset();
-    // this.inputs.forEach((input) => {
-    //   input.value = '';
-    // });
     super.closePopup();
   }
 }
