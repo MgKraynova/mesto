@@ -1,7 +1,6 @@
 class Popup {
-  constructor(popupSelector, popupCloseButtonSelector) {
+  constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._closeButton = this._popup.querySelector(popupCloseButtonSelector);
   }
 
   _closePopupByPressEsc(evt) {
@@ -11,9 +10,9 @@ class Popup {
   }
 
   _closePopupByClickOnOverlay(evt) {
-      if (evt.target === this._popup) {
-        this.closePopup();
-      }
+    if (evt.target === this._popup) {
+      this.closePopup();
+    }
   }
 
   openPopup() {
@@ -26,12 +25,13 @@ class Popup {
   closePopup() {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', (evt) => {
-     this._closePopupByPressEsc(evt);
+      this._closePopupByPressEsc(evt);
     });
   }
 
   setEventListeners() {
-    this._closeButton.addEventListener('click', () => {
+    const closeButton = this._popup.querySelector('.popup__close-button');
+    closeButton.addEventListener('click', () => {
       this.closePopup();
     });
 

@@ -1,16 +1,15 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor(popupSelector, popupCloseButtonSelector, popupInputSelector, popupSubmitButtonSelector, handleSubmitFunction ) {
-    super(popupSelector, popupCloseButtonSelector);
-    this._inputs = this._popup.querySelectorAll(popupInputSelector);
-    this._inputValues = { };
-    this._submitButton = this._popup.querySelector(popupSubmitButtonSelector);
+  constructor({popupSelector, handleSubmitFunction}) {
+    super(popupSelector);
+    this.inputs = this._popup.querySelectorAll('.popup__input');
+    this._inputValues = {};
     this._handleSubmitFunction = handleSubmitFunction;
   }
 
   _getInputValues() {
-    this._inputs.forEach((input) => {
+    this.inputs.forEach((input) => {
       this._inputValues[input.name] = input.value;
     })
     return this._inputValues;
@@ -18,20 +17,25 @@ class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._submitButton.addEventListener('click', (evt) => {
+
+    const submitButton = this._popup.querySelector('.popup__button');
+
+    submitButton.addEventListener('click', (evt) => {
       this._handleSubmitFunction(evt, this._getInputValues());
-      this._inputValues = {};
       this.closePopup();
     })
   }
 
   closePopup() {
-    this._inputs.forEach((input) => {
-      input.value = '';
-    });
+    const formElement = this._popup.querySelector('.popup__form');
+    formElement.reset();
+    // this.inputs.forEach((input) => {
+    //   input.value = '';
+    // });
     super.closePopup();
   }
 }
+
 export default PopupWithForm;
 
 

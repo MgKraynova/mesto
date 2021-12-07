@@ -8,15 +8,15 @@ class FormValidator {
   }
 
   _showErrorForInput(input) {
-      const errorElement = this._formElement.querySelector(`.${input.id}-error`);
-      input.classList.add(this._config.errorClass);
-      errorElement.textContent = input.validationMessage;
+    const errorElement = this._formElement.querySelector(`.${input.id}-error`);
+    input.classList.add(this._config.errorClass);
+    errorElement.textContent = input.validationMessage;
   }
 
-  _hideErrorForInput(input) {
-      const errorElement = this._formElement.querySelector(`.${input.id}-error`);
-      input.classList.remove(this._config.errorClass);
-      errorElement.textContent = ' ';
+  hideErrorForInput(input) {
+    const errorElement = this._formElement.querySelector(`.${input.id}-error`);
+    input.classList.remove(this._config.errorClass);
+    errorElement.textContent = ' ';
   }
 
   _checkInputValidation() {
@@ -24,7 +24,7 @@ class FormValidator {
       if (!input.validity.valid) {
         this._showErrorForInput(input);
       } else {
-        this._hideErrorForInput(input);
+        this.hideErrorForInput(input);
       }
     })
   }
@@ -41,19 +41,10 @@ class FormValidator {
   _addFormListeners() {
     this._inputs.forEach((input) => input.addEventListener('input', () => {
       this._checkInputValidation();
+      this.setSubmitButtonState();
     }));
 
     this._formElement.addEventListener('submit', this._cancelDefaultFormSubmit);
-
-    this._formElement.addEventListener('input', () => {
-      this.setSubmitButtonState();
-    });
-
-    this._closeButton.addEventListener('click', () => {
-      this._inputs.forEach((input) => {
-        this._hideErrorForInput(input);
-      })
-    }) // сокрытие ошибок формы при закрытии попапа
   }
 
   enableValidation() {
