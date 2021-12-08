@@ -55,6 +55,9 @@ const popupProfile = new PopupWithForm({
 });
 popupProfile.setEventListeners();
 
+const popupWithImage = new PopupWithImage('.popup_type_image');
+popupWithImage.setEventListeners();
+
 //Создание экземпляров FormValidator и активация валидации
 const formValidatorForNewPlaceForm = new FormValidator(formConfig, newPlaceForm);
 formValidatorForNewPlaceForm.enableValidation();
@@ -71,12 +74,10 @@ const userInfo = new UserInfo({
 // ФУНКЦИИ
 //Обработчик клика на карточку, открывает попап с большой картинкой
 function handleCardClick({cardLink: cardLink, cardName: cardName}) {
-  const popupWithImage = new PopupWithImage('.popup_type_image');
   popupWithImage.openImagePopup({
     cardLink: cardLink,
     cardName: cardName
   });
-  popupWithImage.setEventListeners();
 }
 
 //Обработчик клика на кнопку создания новой карточки
