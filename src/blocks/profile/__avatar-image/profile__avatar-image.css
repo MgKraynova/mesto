@@ -3,26 +3,47 @@
   height: 120px;
   object-fit: cover;
   border-radius: 50%;
-  position: relative;
+  z-index: 1;
 }
+
+/*.profile__content>.profile__avatar-image:hover:after {*/
+/*  content: '';*/
+/*  position: absolute;*/
+/*  top: 0; right: 0;*/
+/*  bottom: 0; left: 0;*/
+/*  background-image: url("../../../images/profile__pencil.svg");*/
+/*  background-repeat: no-repeat;*/
+/*  background-position: center;*/
+/*  overflow: hidden;*/
+/*  z-index: 10;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.profile__content>.profile__avatar-image:hover {*/
+/*  cursor: pointer;*/
+/*  filter: brightness(20%);*/
+/*  z-index: 10;*/
+/*  background-image: url("../../../images/profile__pencil.svg");*/
+/*}*/
+
+/*.profile__avatar-image:hover::after {*/
+/*  content: "";*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  bottom: 0;*/
+/*  right: 0;*/
+/*  left: 0;*/
+/*  !*background-color: #2a2c2f;*!*/
+/*  background-image: url("../../../images/profile__pencil.svg");*/
+/*  opacity: 1;*/
+/*  z-index: 10;*/
+/*  cursor: pointer;*/
+/*}*/
 
 /*.profile__avatar-image:hover {*/
 /*  filter: brightness(20%);*/
 /*  cursor: pointer;*/
 /*}*/
-
-.profile__avatar-image:hover::after {
-  content: url("../../../images/profile__pencil.svg");
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  /*background-color: #2a2c2f;*/
-  opacity: 1;
-  z-index: 10;
-  cursor: pointer;
-}
 
 /*.profile__avatar-image:hover:after {*/
 /*  opacity: 0.8;*/

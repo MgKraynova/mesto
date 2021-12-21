@@ -1,5 +1,5 @@
 import './index.css';
-import initialCards from '../utils/cards.js'
+// import initialCards from '../utils/cards.js'
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -33,15 +33,17 @@ const profileForm = document.querySelector('.popup__form_type_profile');
 
 // СОЗДАНИЕ ЭКЗЕМПЛЯРОВ КЛАССА
 
-// Создание первых 6 карточек
+// Создание экземпляра Section
 const cardList = new Section({
-    items: initialCards,
     renderer: createCard
   },
   '.cards'
 )
 
-cardList.renderItems();
+//Создание экземпляра Api
+const api = new Api(setUserInfoFromServer, addInitialCardsFromServerToDom);
+api.getUserInfo();
+api.getInitialCards();
 
 // Создание экземпляров попапов
 const popupPlace = new PopupWithForm({
@@ -69,7 +71,8 @@ formValidatorForProfileForm.enableValidation();
 // Созжание экземпляра UserInfo
 const userInfo = new UserInfo({
   userNameSelector: '.profile__name-field',
-  userDescriptionSelector: '.profile__description-field'
+  userDescriptionSelector: '.profile__description-field',
+  userAvatarSelector: '.profile__avatar-image'
 });
 
 // ФУНКЦИИ
@@ -103,6 +106,18 @@ function createCard(cardName, imageLink) {
   });
   const cardElement = card.createCard();
   cardList.addItem(cardElement);
+}
+
+function addInitialCardsFromServerToDom(dataWithCardsFromServer) {
+  cardList.setItems(dataWithCardsFromServer);
+  cardList.renderItems();
+}
+
+function setUserInfoFromServer(name, about, link) {
+  userInfo.setUserInfoWithDataFromServer({
+    userName: name,
+    userDescription: about,
+    userAvatarLink: link})
 }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
