@@ -95,6 +95,7 @@ function handleFormProfileSubmit(evt, inputValues) {
     userName: inputValues['popup-input-name'],
     userDescription: inputValues['popup-input-description']
   });
+  api.updateUserInfoAtServer(inputValues['popup-input-name'], inputValues['popup-input-description']);
 }
 
 function createCard(cardName, imageLink) {
@@ -119,6 +120,10 @@ function setUserInfoFromServer(name, about, link) {
     userDescription: about,
     userAvatarLink: link})
 }
+
+// function updateUserInfoAtServer({newName, newDescription}) {
+//   api.updateUserInfoAtServer(newName, newDescription);
+// }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
 
