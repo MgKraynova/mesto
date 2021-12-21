@@ -87,6 +87,7 @@ function handleCardClick({cardLink: cardLink, cardName: cardName}) {
 //Обработчик клика на кнопку создания новой карточки
 function handleFormPlaceSubmit(evt, inputValues) {
   createCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
+  api.sendCardInfoToServer(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
 }
 
 // Обработчик клика на кнопку редактирования данных профиля
@@ -120,10 +121,6 @@ function setUserInfoFromServer(name, about, link) {
     userDescription: about,
     userAvatarLink: link})
 }
-
-// function updateUserInfoAtServer({newName, newDescription}) {
-//   api.updateUserInfoAtServer(newName, newDescription);
-// }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
 
