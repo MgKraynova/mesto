@@ -241,6 +241,12 @@ editButton.addEventListener('click', () => {
 
 changeAvatarButton.addEventListener('click', () => {
   popupAvatar.openPopup();
+
+  formValidatorForAvatarForm.setSubmitButtonState();
+
+  popupAvatar.inputs.forEach((input) => {
+    formValidatorForAvatarForm.hideErrorForInput(input);
+  })
 })
 
 
