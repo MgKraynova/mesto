@@ -20,6 +20,11 @@ class UserInfo {
   setUserInfoWithDataFromServer({userName, userDescription, userAvatarLink}) {
     this.setUserInfo({userName, userDescription});
     this._userAvatarElement.src = userAvatarLink;
+    this._userAvatarElement.alt = userName;
+  }
+
+  updateAvatar(userAvatarLink) {
+    this._userAvatarElement.src = userAvatarLink;
   }
 }
 

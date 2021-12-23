@@ -7,8 +7,9 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  color: none;
+  color: unset;
   padding: 0;
+  visibility: visible;
 }
 
 .card__delete-button:hover {

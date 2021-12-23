@@ -7,11 +7,14 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from "../components/Api.js";
+import PopupWithSubmitButton from "../components/PopupWithSubmitButton.js";
+
 
 // ПЕРЕМЕННЫЕ
 // Элементы кнопок
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const changeAvatarButton = document.querySelector('.profile__wrapper');
 
 // Элементы попапа профиля
 const inputName = document.querySelector('.popup__input_content_name');
@@ -30,6 +33,7 @@ const formConfig = {
 }
 const newPlaceForm = document.querySelector('.popup__form_type_place');
 const profileForm = document.querySelector('.popup__form_type_profile');
+const avatarForm = document.querySelector('.popup__form_type_change-avatar');
 
 // СОЗДАНИЕ ЭКЗЕМПЛЯРОВ КЛАССА
 
@@ -41,7 +45,7 @@ const cardList = new Section({
 )
 
 //Создание экземпляра Api
-const api = new Api(setUserInfoFromServer, addInitialCardsFromServerToDom);
+const api = new Api(setUserInfoFromServer, addInitialCardsFromServerToDom, createCard, updateAvatar, renderLoading);
 api.getUserInfo();
 api.getInitialCards();
 
@@ -61,12 +65,27 @@ popupProfile.setEventListeners();
 const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
 
+const popupForDelete = new PopupWithSubmitButton({
+  popupSelector: '.popup_type_delete',
+  handleSubmitFunction: handleSubmitDeleteButton
+});
+popupForDelete.setEventListeners();
+
+const popupAvatar = new PopupWithForm({
+  popupSelector: '.popup_type_change-avatar',
+  handleSubmitFunction: handleChangeAvatarSubmit
+})
+popupAvatar.setEventListeners();
+
 //Создание экземпляров FormValidator и активация валидации
 const formValidatorForNewPlaceForm = new FormValidator(formConfig, newPlaceForm);
 formValidatorForNewPlaceForm.enableValidation();
 
 const formValidatorForProfileForm = new FormValidator(formConfig, profileForm);
 formValidatorForProfileForm.enableValidation();
+
+const formValidatorForAvatarForm = new FormValidator(formConfig, avatarForm);
+formValidatorForAvatarForm.enableValidation();
 
 // Созжание экземпляра UserInfo
 const userInfo = new UserInfo({
@@ -85,13 +104,13 @@ function handleCardClick({cardLink: cardLink, cardName: cardName}) {
 }
 
 //Обработчик клика на кнопку создания новой карточки
-function handleFormPlaceSubmit(evt, inputValues) {
-  createCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
-  api.sendCardInfoToServer(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
+function handleFormPlaceSubmit(inputValues) {
+  api.sendCardInfoToServerAndCreateCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
+  // createCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
 }
 
 // Обработчик клика на кнопку редактирования данных профиля
-function handleFormProfileSubmit(evt, inputValues) {
+function handleFormProfileSubmit(inputValues) {
   userInfo.setUserInfo({
     userName: inputValues['popup-input-name'],
     userDescription: inputValues['popup-input-description']
@@ -99,19 +118,53 @@ function handleFormProfileSubmit(evt, inputValues) {
   api.updateUserInfoAtServer(inputValues['popup-input-name'], inputValues['popup-input-description']);
 }
 
-function createCard(cardName, imageLink) {
-  const card = new Card(cardName, imageLink, '.template', () => {
+// Обработчик клика на кнопку изменения аватара
+function handleChangeAvatarSubmit(inputValues) {
+  api.sendNewAvatarToServerAndChangeAvatar(inputValues['popup-input-avatar-link']);
+  // createCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
+}
+
+function updateAvatar(userAvatarLink) {
+  userInfo.updateAvatar(userAvatarLink);
+}
+
+function createCard(cardData) {
+  const card = new Card(cardData.name, cardData.link, '.template', () => {
     handleCardClick({
-      cardLink: imageLink,
-      cardName: cardName
+      cardLink: cardData.link,
+      cardName: cardData.name
     });
-  });
+  }, cardData.likes.length, handleDeleteButtonFunction, cardData._id, handleLikeClick);
   const cardElement = card.createCard();
+
+  showDeleteButtonOnCardIfItIsUsersCard(api.userId, cardData.owner._id, cardElement);
+
+  checkIfCardHasBeenLikedByUser(cardData.likes, card);
+
   cardList.addItem(cardElement);
+}
+
+function checkIfCardHasBeenLikedByUser(dataLikes, card) {
+  let likeIsActive = false;
+
+  dataLikes.forEach((like) => {
+    if ((like._id === api.userId) && (!likeIsActive)) {
+      card._makeLikeActive();
+      likeIsActive = true;
+    }
+  });
+}
+
+function showDeleteButtonOnCardIfItIsUsersCard(userId, ownerCardId, card) {
+  if (!(userId === ownerCardId)) {
+    card.querySelector('.card__delete-button').classList.add('card__delete-button_invisible');
+  } else {
+  }
 }
 
 function addInitialCardsFromServerToDom(dataWithCardsFromServer) {
   cardList.setItems(dataWithCardsFromServer);
+
   cardList.renderItems();
 }
 
@@ -119,7 +172,35 @@ function setUserInfoFromServer(name, about, link) {
   userInfo.setUserInfoWithDataFromServer({
     userName: name,
     userDescription: about,
-    userAvatarLink: link})
+    userAvatarLink: link
+  })
+}
+
+function handleSubmitDeleteButton(card) {
+  api.deleteCard(card.cardId);
+  card.deleteCard();
+  card = null;
+}
+
+function handleDeleteButtonFunction() {
+  popupForDelete.openPopup();
+  popupForDelete.currentCard = this;
+}
+
+function sendCardLikeToServer(cardId) {
+  api.addLikeToCard(cardId);
+}
+
+function removeCardLikeFromServer(cardId) {
+  api.removeLikeFromCard(cardId);
+}
+
+function handleLikeClick(cardLikeButton, cardId) {
+  if (!cardLikeButton.classList.contains('card__like-button_active')) {
+    removeCardLikeFromServer(cardId);
+  } else {
+    sendCardLikeToServer(cardId);
+  }
 }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
@@ -148,3 +229,20 @@ editButton.addEventListener('click', () => {
   }
 )
 
+changeAvatarButton.addEventListener('click', () => {
+  popupAvatar.openPopup();
+})
+
+function renderLoading(isLoading, popup) {
+  const popupButton = popup.querySelector('.popup__button');
+
+  if (isLoading) {
+    popupButton.textContent = "Сохранение..";
+  } else {
+    if (popup.classList.contains('popup_type_place')) {
+      popupButton.textContent = "Создать";
+    } else {
+      popupButton.textContent = "Сохранить";
+    }
+  }
+}
