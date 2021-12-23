@@ -8,7 +8,6 @@ import UserInfo from '../components/UserInfo.js';
 import Api from "../components/Api.js";
 import PopupWithSubmitButton from "../components/PopupWithSubmitButton.js";
 
-
 // ПЕРЕМЕННЫЕ
 // Элементы кнопок
 const editButton = document.querySelector('.profile__edit-button');
