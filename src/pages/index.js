@@ -1,5 +1,4 @@
 import './index.css';
-// import initialCards from '../utils/cards.js'
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -95,6 +94,7 @@ const userInfo = new UserInfo({
 });
 
 // ФУНКЦИИ
+
 //Обработчик клика на карточку, открывает попап с большой картинкой
 function handleCardClick({cardLink: cardLink, cardName: cardName}) {
   popupWithImage.openImagePopup({
@@ -106,7 +106,6 @@ function handleCardClick({cardLink: cardLink, cardName: cardName}) {
 //Обработчик клика на кнопку создания новой карточки
 function handleFormPlaceSubmit(inputValues) {
   api.sendCardInfoToServerAndCreateCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
-  // createCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
 }
 
 // Обработчик клика на кнопку редактирования данных профиля
@@ -121,7 +120,6 @@ function handleFormProfileSubmit(inputValues) {
 // Обработчик клика на кнопку изменения аватара
 function handleChangeAvatarSubmit(inputValues) {
   api.sendNewAvatarToServerAndChangeAvatar(inputValues['popup-input-avatar-link']);
-  // createCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
 }
 
 function updateAvatar(userAvatarLink) {
@@ -158,7 +156,6 @@ function checkIfCardHasBeenLikedByUser(dataLikes, card) {
 function showDeleteButtonOnCardIfItIsUsersCard(userId, ownerCardId, card) {
   if (!(userId === ownerCardId)) {
     card.querySelector('.card__delete-button').classList.add('card__delete-button_invisible');
-  } else {
   }
 }
 
@@ -203,6 +200,20 @@ function handleLikeClick(cardLikeButton, cardId) {
   }
 }
 
+function renderLoading(isLoading, popup) {
+  const popupButton = popup.querySelector('.popup__button');
+
+  if (isLoading) {
+    popupButton.textContent = "Сохранение..";
+  } else {
+    if (popup.classList.contains('popup_type_place')) {
+      popupButton.textContent = "Создать";
+    } else {
+      popupButton.textContent = "Сохранить";
+    }
+  }
+}
+
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
 
 addButton.addEventListener('click', () => {
@@ -233,16 +244,4 @@ changeAvatarButton.addEventListener('click', () => {
   popupAvatar.openPopup();
 })
 
-function renderLoading(isLoading, popup) {
-  const popupButton = popup.querySelector('.popup__button');
 
-  if (isLoading) {
-    popupButton.textContent = "Сохранение..";
-  } else {
-    if (popup.classList.contains('popup_type_place')) {
-      popupButton.textContent = "Создать";
-    } else {
-      popupButton.textContent = "Сохранить";
-    }
-  }
-}
