@@ -50,7 +50,13 @@ const cardList = new Section({
 )
 
 //Создание экземпляра Api и запрос первоначальных данных
-const api = new Api();
+const api = new Api({
+  serverUrl: 'https://mesto.nomoreparties.co/v1/cohort-32',
+  headers: {
+    authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517',
+    'Content-Type': 'application/json'
+  }
+});
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([{name, about, avatar, _id}, cardsData]) => {
@@ -277,11 +283,7 @@ function handleApiError(err) {
 addButton.addEventListener('click', () => {
   popupPlace.openPopup();
 
-  formValidatorForNewPlaceForm.setSubmitButtonState();
-
-  popupPlace.inputs.forEach((input) => {
-    formValidatorForNewPlaceForm.hideErrorForInput(input);
-  })
+  formValidatorForNewPlaceForm.resetValidation();
 })
 
 editButton.addEventListener('click', () => {
@@ -290,21 +292,13 @@ editButton.addEventListener('click', () => {
     inputName.value = userInfo.getUserInfo().userName;
     inputDescription.value = userInfo.getUserInfo().userDescription;
 
-    formValidatorForProfileForm.setSubmitButtonState();
-
-    popupProfile.inputs.forEach((input) => {
-      formValidatorForProfileForm.hideErrorForInput(input);
-    });
+    formValidatorForProfileForm.resetValidation();
   }
 )
 
 changeAvatarButton.addEventListener('click', () => {
   popupAvatar.openPopup();
 
-  formValidatorForAvatarForm.setSubmitButtonState();
-
-  popupAvatar.inputs.forEach((input) => {
-    formValidatorForAvatarForm.hideErrorForInput(input);
-  })
+  formValidatorForAvatarForm.resetValidation();
 })
 

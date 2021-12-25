@@ -12,7 +12,7 @@ class FormValidator {
     errorElement.textContent = input.validationMessage;
   }
 
-  hideErrorForInput(input) {
+  _hideErrorForInput(input) {
     const errorElement = this._formElement.querySelector(`.${input.id}-error`);
     input.classList.remove(this._config.errorClass);
     errorElement.textContent = ' ';
@@ -23,7 +23,7 @@ class FormValidator {
       if (!input.validity.valid) {
         this._showErrorForInput(input);
       } else {
-        this.hideErrorForInput(input);
+        this._hideErrorForInput(input);
       }
     })
   }
@@ -32,15 +32,22 @@ class FormValidator {
     evt.preventDefault();
   }
 
-  setSubmitButtonState() {
+  _setSubmitButtonState() {
     this._submitButton.disabled = !this._formElement.checkValidity();
     this._submitButton.classList.toggle(this._config.submitButtonInactiveStateClass, !this._formElement.checkValidity());
+  }
+
+  resetValidation() {
+    this._setSubmitButtonState();
+    this._inputs.forEach((input) => {
+      this._hideErrorForInput(input);
+    })
   }
 
   _addFormListeners() {
     this._inputs.forEach((input) => input.addEventListener('input', () => {
       this._checkInputValidation();
-      this.setSubmitButtonState();
+      this._setSubmitButtonState();
     }));
 
     this._formElement.addEventListener('submit', this._cancelDefaultFormSubmit);
