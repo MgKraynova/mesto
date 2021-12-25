@@ -19,3 +19,4 @@ class PopupWithSubmitButton extends Popup {
 }
 
 export default PopupWithSubmitButton;
+

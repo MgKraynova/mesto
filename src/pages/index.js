@@ -14,6 +14,11 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const changeAvatarButton = document.querySelector('.profile__wrapper');
 
+// Элементы попапов
+const popupProfileElement = document.querySelector('.popup_type_profile');
+const popupAvatarElement = document.querySelector('.popup_type_change-avatar');
+const popupPlaceElement = document.querySelector('.popup_type_place');
+
 // Элементы попапа профиля
 const inputName = document.querySelector('.popup__input_content_name');
 const inputDescription = document.querySelector(
@@ -33,8 +38,10 @@ const newPlaceForm = document.querySelector('.popup__form_type_place');
 const profileForm = document.querySelector('.popup__form_type_profile');
 const avatarForm = document.querySelector('.popup__form_type_change-avatar');
 
-// СОЗДАНИЕ ЭКЗЕМПЛЯРОВ КЛАССА
+// Прочие переменные
+let userData = '';
 
+// СОЗДАНИЕ ЭКЗЕМПЛЯРОВ КЛАССА
 // Создание экземпляра Section
 const cardList = new Section({
     renderer: createCard
@@ -42,10 +49,23 @@ const cardList = new Section({
   '.cards'
 )
 
-//Создание экземпляра Api
-const api = new Api(setUserInfoFromServer, addInitialCardsFromServerToDom, createCard, updateAvatar, renderLoading);
-api.getUserInfo();
-api.getInitialCards();
+//Создание экземпляра Api и запрос первоначальных данных
+const api = new Api();
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([{name, about, avatar, _id}, cardsData]) => {
+    userData = {
+      userName: name,
+      userDescription: about,
+      userAvatarLink: avatar,
+      userId: _id
+    }
+    userInfo.setUserInfo(userData);
+    cardList.renderItems(cardsData, userData);
+  })
+  .catch((err) => {
+    handleApiError(err);
+  });
 
 // Создание экземпляров попапов
 const popupPlace = new PopupWithForm({
@@ -90,10 +110,9 @@ const userInfo = new UserInfo({
   userNameSelector: '.profile__name-field',
   userDescriptionSelector: '.profile__description-field',
   userAvatarSelector: '.profile__avatar-image'
-});
+},);
 
 // ФУНКЦИИ
-
 //Обработчик клика на карточку, открывает попап с большой картинкой
 function handleCardClick({cardLink: cardLink, cardName: cardName}) {
   popupWithImage.openImagePopup({
@@ -104,99 +123,135 @@ function handleCardClick({cardLink: cardLink, cardName: cardName}) {
 
 //Обработчик клика на кнопку создания новой карточки
 function handleFormPlaceSubmit(inputValues) {
-  api.sendCardInfoToServerAndCreateCard(inputValues['popup-input-place-name'], inputValues['popup-input-image-link']);
+  renderLoading(true, popupPlaceElement);
+
+  api.sendCardInfoToServer(inputValues['popup-input-place-name'], inputValues['popup-input-image-link'])
+    .then((cardData) => {
+        createCard(cardData, userData);
+        popupPlace.closePopup();
+      }
+    )
+    .catch((err) => {
+      handleApiError(err);
+    })
+    .finally(() => {
+      renderLoading(false, popupPlaceElement);
+    });
 }
 
 // Обработчик клика на кнопку редактирования данных профиля
 function handleFormProfileSubmit(inputValues) {
-  userInfo.setUserInfo({
-    userName: inputValues['popup-input-name'],
-    userDescription: inputValues['popup-input-description']
-  });
-  api.updateUserInfoAtServer(inputValues['popup-input-name'], inputValues['popup-input-description']);
+  renderLoading(true, popupProfileElement);
+
+  api.updateUserInfoAtServer(inputValues['popup-input-name'], inputValues['popup-input-description'])
+    .then(({name, about, avatar, _id}) => {
+      userData = {
+        userName: name,
+        userDescription: about,
+        userAvatarLink: avatar,
+        userId: _id
+      }
+
+      userInfo.setUserInfo({
+        userName: userData.userName,
+        userDescription: userData.userDescription,
+        userAvatarLink: userData.userAvatarLink
+      });
+
+      popupProfile.closePopup();
+    })
+    .catch((err) => {
+      handleApiError(err);
+    })
+    .finally(() => {
+      renderLoading(false, popupProfileElement);
+    });
 }
 
 // Обработчик клика на кнопку изменения аватара
 function handleChangeAvatarSubmit(inputValues) {
-  api.sendNewAvatarToServerAndChangeAvatar(inputValues['popup-input-avatar-link']);
-}
+  renderLoading(true, popupAvatarElement);
 
-function updateAvatar(userAvatarLink) {
-  userInfo.updateAvatar(userAvatarLink);
-}
+  api.sendNewAvatarToServer(inputValues['popup-input-avatar-link'])
+    .then(({name, about, avatar, _id}) => {
+      userData = {
+        userName: name,
+        userDescription: about,
+        userAvatarLink: avatar,
+        userId: _id
+      }
 
-function createCard(cardData) {
-  const card = new Card(cardData.name, cardData.link, '.template', () => {
-    handleCardClick({
-      cardLink: cardData.link,
-      cardName: cardData.name
+      userInfo.setUserInfo({
+        userName: userData.userName,
+        userDescription: userData.userDescription,
+        userAvatarLink: userData.userAvatarLink
+      });
+
+      popupAvatar.closePopup();
+    })
+    .catch((err) => {
+      handleApiError(err);
+    })
+    .finally(() => {
+      renderLoading(false, popupAvatarElement);
     });
-  }, cardData.likes.length, handleDeleteButtonFunction, cardData._id, handleLikeClick);
-  const cardElement = card.createCard();
-
-  showDeleteButtonOnCardIfItIsUsersCard(api.userId, cardData.owner._id, cardElement);
-
-  checkIfCardHasBeenLikedByUser(cardData.likes, card);
-
-  cardList.addItem(cardElement);
 }
 
-function checkIfCardHasBeenLikedByUser(dataLikes, card) {
-  let likeIsActive = false;
-
-  dataLikes.forEach((like) => {
-    if ((like._id === api.userId) && (!likeIsActive)) {
-      card._makeLikeActive();
-      likeIsActive = true;
-    }
-  });
-}
-
-function showDeleteButtonOnCardIfItIsUsersCard(userId, ownerCardId, card) {
-  if (!(userId === ownerCardId)) {
-    card.querySelector('.card__delete-button').classList.add('card__delete-button_invisible');
-  }
-}
-
-function addInitialCardsFromServerToDom(dataWithCardsFromServer) {
-  cardList.setItems(dataWithCardsFromServer);
-
-  cardList.renderItems();
-}
-
-function setUserInfoFromServer(name, about, link) {
-  userInfo.setUserInfoWithDataFromServer({
-    userName: name,
-    userDescription: about,
-    userAvatarLink: link
-  })
-}
-
-function handleSubmitDeleteButton(card) {
-  api.deleteCard(card.cardId);
-  card.deleteCard();
-  card = null;
-}
-
+//Обработчик клика на кнопку корзины
 function handleDeleteButtonFunction() {
   popupForDelete.openPopup();
   popupForDelete.currentCard = this;
 }
 
-function sendCardLikeToServer(cardId) {
-  api.addLikeToCard(cardId);
+//Обработчик клика на кнопку подтверждения удаления карточки
+function handleSubmitDeleteButton(card) {
+  api.deleteCard(card.cardId)
+    .then(() => {
+      card.deleteCard();
+      card = null;
+    })
+    .catch((err) => {
+      handleApiError(err);
+    });
 }
 
-function removeCardLikeFromServer(cardId) {
-  api.removeLikeFromCard(cardId);
-}
-
-function handleLikeClick(cardLikeButton, cardId) {
+//Обработчик клика на кнопку лайка
+function handleLikeClick(card, cardLikeButton, cardId) {
   if (!cardLikeButton.classList.contains('card__like-button_active')) {
-    removeCardLikeFromServer(cardId);
+    api.addLikeToCard(cardId)
+      .then(({likes}) => {
+        updateLikeButtonAndCounter(card, likes);
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
   } else {
-    sendCardLikeToServer(cardId);
+    api.removeLikeFromCard(cardId)
+      .then(({likes}) => {
+        updateLikeButtonAndCounter(card, likes);
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
   }
+}
+
+function updateLikeButtonAndCounter(card, likes) {
+  card.changeLikeStatus();
+  card.setLikeCounter(likes.length);
+}
+
+function createCard(cardData, userData) {
+  const card = new Card(cardData, userData, '.template', () => {
+    handleCardClick({
+      cardLink: cardData.link,
+      cardName: cardData.name
+    });
+  }, handleDeleteButtonFunction, handleLikeClick);
+
+  const cardElement = card.createCard();
+
+  cardList.addItem(cardElement);
 }
 
 function renderLoading(isLoading, popup) {
@@ -211,6 +266,10 @@ function renderLoading(isLoading, popup) {
       popupButton.textContent = "Сохранить";
     }
   }
+}
+
+function handleApiError(err) {
+  console.log('Ошибка. Запрос не выполнен: ', err);
 }
 
 // ДОБАВЛЕНИЕ ОБРАБОТЧИКОВ СОБЫТИЙ
@@ -248,5 +307,4 @@ changeAvatarButton.addEventListener('click', () => {
     formValidatorForAvatarForm.hideErrorForInput(input);
   })
 })
-
 

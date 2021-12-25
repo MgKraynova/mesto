@@ -1,64 +1,36 @@
 class Api {
-  constructor(setUserInfoFromServer, addInitialCardsFromServerToDom, createCardFunction, updateAvatarFunction, renderLoadingFunction) {
-    this._setUserInfoFromServer = setUserInfoFromServer;
-    this._addInitialCardsFromServerToDom = addInitialCardsFromServerToDom;
-    this.userId = '';
-    this._createCard = createCardFunction;
-    this._updateAvatar = updateAvatarFunction;
-    this._renderLoading = renderLoadingFunction;
+
+  _checkResult(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
   }
 
   getUserInfo() {
-    fetch('https://nomoreparties.co/v1/cohort-32/users/me ', {
+    return fetch('https://nomoreparties.co/v1/cohort-32/users/me ', {
       method: 'GET',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517'
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .then(result => {
-        this._setUserInfoFromServer(result.name, result.about, result.avatar);
-        this.userId = result._id;
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      .then(this._checkResult);
   }
 
 
   getInitialCards() {
-    fetch('https://nomoreparties.co/v1/cohort-32/cards', {
+    return fetch('https://nomoreparties.co/v1/cohort-32/cards', {
       method: 'GET',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517'
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .then(result => {
-        this._addInitialCardsFromServerToDom(result);
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      .then(this._checkResult);
   }
 
   updateUserInfoAtServer(newName, newDescription) {
-    const popup = document.querySelector('.popup_type_profile');
-
-    this._renderLoading(true, popup);
-    fetch('https://mesto.nomoreparties.co/v1/cohort-32/users/me', {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-32/users/me', {
       method: 'PATCH',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517',
@@ -69,26 +41,11 @@ class Api {
         about: newDescription
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-      .finally(() => {
-        this._renderLoading(false, popup);
-      })
+      .then(this._checkResult);
   }
 
-  sendCardInfoToServerAndCreateCard(cardName, cardLink) {
-    const popup = document.querySelector('.popup_type_place');
-
-    this._renderLoading(true, popup);
-    fetch('https://mesto.nomoreparties.co/v1/cohort-32/cards', {
+  sendCardInfoToServer(cardName, cardLink) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-32/cards', {
       method: 'POST',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517',
@@ -99,86 +56,41 @@ class Api {
         link: cardLink
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .then((result) => {
-        this._createCard(result);
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-      .finally(() => {
-        this._renderLoading(false, popup);
-      });
+      .then(this._checkResult);
   }
 
   deleteCard(cardId) {
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-32/cards/${cardId}`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-32/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517'
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      .then(this._checkResult);
   }
 
   addLikeToCard(cardId) {
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-32/cards/${cardId}/likes`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-32/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517'
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      .then(this._checkResult);
   }
 
   removeLikeFromCard(cardId) {
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-32/cards/${cardId}/likes`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-32/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517'
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      .then(this._checkResult);
   }
 
-  sendNewAvatarToServerAndChangeAvatar(avatarLink) {
-    const popup = document.querySelector('.popup_type_change-avatar');
-
-    this._renderLoading(true, popup);
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-32/users/me/avatar`, {
+  sendNewAvatarToServer(avatarLink) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-32/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: '061fe8f7-e35d-435e-9a0b-36d23d83d517',
@@ -188,22 +100,7 @@ class Api {
         avatar: avatarLink,
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .then(result => {
-        this._updateAvatar(result.avatar);
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-      .finally(() => {
-        this._renderLoading(false, popup);
-      });
+      .then(this._checkResult);
   }
 }
 

@@ -12,19 +12,13 @@ class UserInfo {
     return this._dataWithUserInfo;
   }
 
-  setUserInfo({userName, userDescription}) {
+  setUserInfo({userName, userDescription, userAvatarLink}) {
     this._userNameElement.textContent = userName;
-    this._userDescriptionElement.textContent = userDescription;
-  }
 
-  setUserInfoWithDataFromServer({userName, userDescription, userAvatarLink}) {
-    this.setUserInfo({userName, userDescription});
+    this._userDescriptionElement.textContent = userDescription;
+
     this._userAvatarElement.src = userAvatarLink;
     this._userAvatarElement.alt = userName;
-  }
-
-  updateAvatar(userAvatarLink) {
-    this._userAvatarElement.src = userAvatarLink;
   }
 }
 
